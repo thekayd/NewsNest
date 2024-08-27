@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "616251755163",
+    "project_id": "chat-application-2bc19",
+    "storage_bucket": "chat-application-2bc19.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:616251755163:android:9bfa0d6627ab089c5e143e",
+        "android_client_info": {
+          "package_name": "com.kayodedaniel.nestnews"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyACCaJ4cdf6MTRVY08b7i55nv6j5onXy18"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

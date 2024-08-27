@@ -1,0 +1,57 @@
+[versions]
+agp = "8.3.2"
+kotlin = "1.9.0"
+coreKtx = "1.13.1"
+junit = "4.13.2"
+junitVersion = "1.2.1"
+espressoCore = "3.6.1"
+appcompat = "1.7.0"
+material = "1.12.0"
+activity = "1.8.0"
+constraintlayout = "2.1.4"
+kotlinStdlib = "1.9.0"
+retrofit = "2.9.0"
+picasso = "2.71828"
+recyclerview = "1.2.1"
+sspAndroid = "1.0.6"
+makeramenRoundedImageView = "2.3.0"
+googleServices = "4.4.2"
+multidex = "2.0.1"
+firebaseBom = "33.1.2"
+firebaseAnalyticsKtx = "21.2.0"
+firebaseMessaging = "24.0.1"
+firebaseFirestore = "25.1.0"
+
+
+
+[libraries]
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
+androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
+androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+kotlin-stdlib = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib", version.ref = "kotlinStdlib" }
+squareup-retrofit2 = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
+squareup-retrofit2-converter-gson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit" }
+squareup-picasso = { group = "com.squareup.picasso", name = "picasso", version.ref = "picasso" }
+androidx-recyclerview = { group = "androidx.recyclerview", name = "recyclerview", version.ref = "recyclerview" }
+ssp-android = { group = "com.intuit.ssp", name = "ssp-android", version.ref = "sspAndroid" }
+makeramen-roundedimageview = { group = "com.makeramen", name = "roundedimageview", version.ref = "makeramenRoundedImageView" }
+multidex = { group = "androidx.multidex", name = "multidex", version.ref = "multidex" }
+firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebaseBom" }
+firebase-analytics-ktx = { group = "com.google.firebase", name = "firebase-analytics-ktx", version.ref = "firebaseAnalyticsKtx" }
+google-services = { group = "com.google.gms", name = "google-services", version.ref = "googleServices" }
+firebase-messaging = { group = "com.google.firebase", name = "firebase-messaging", version.ref = "firebaseMessaging" }
+firebase-firestore = { group = "com.google.firebase", name = "firebase-firestore", version.ref = "firebaseFirestore" }
+
+
+
+
+
+[plugins]
+androidApplication = { id = "com.android.application", version.ref = "agp" }
+jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+
