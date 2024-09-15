@@ -9,4 +9,5 @@ object Constants {
     const val KEY_IS_SIGNED_IN = "isSignedIn"
     const val KEY_USER_ID = "userId"
     const val KEY_IMAGE = "image"
+    const val KEY_FCM_TOKEN = "fcmToken"
 }

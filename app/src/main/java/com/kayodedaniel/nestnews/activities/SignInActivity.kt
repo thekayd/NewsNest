@@ -20,11 +20,11 @@ class SignInActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         preferenceManager = PreferenceManager(applicationContext)
-//       if (preferenceManager.getBoolean(Constants.KEY_IS_SIGNED_IN)) {
-//            val intent = Intent(applicationContext, MainActivity::class.java)
-//            startActivity(intent)
-//          finish()
-//        }
+       if (preferenceManager.getBoolean(Constants.KEY_IS_SIGNED_IN)) {
+            val intent = Intent(applicationContext, MainActivity::class.java)
+            startActivity(intent)
+          finish()
+        }
         binding = ActivitySignInBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setListeners()

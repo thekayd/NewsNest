@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.kayodedaniel.nestnews.ArticleDetailActivity
 import com.kayodedaniel.nestnews.R
 import com.kayodedaniel.nestnews.api.NewsService
@@ -34,7 +35,24 @@ class MainActivity : AppCompatActivity() {
         recyclerView.adapter = articleAdapter
 
         fetchArticles()
+
+        val bottomNavigation: BottomNavigationView = findViewById(R.id.bottom_navigation)
+        bottomNavigation.setOnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.navigation_home -> {
+                    // Already on Home
+                    true
+                }
+                R.id.navigation_message -> {
+                    val intent = Intent(this, MessageHomeActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
+                else -> false
+            }
+        }
     }
+
 
     private fun fetchArticles() {
         val retrofit = Retrofit.Builder()
