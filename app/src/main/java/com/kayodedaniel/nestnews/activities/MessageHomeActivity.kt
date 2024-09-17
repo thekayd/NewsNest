@@ -7,21 +7,18 @@ import android.os.Bundle
 import android.util.Base64
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.messaging.FirebaseMessaging
 import com.kayodedaniel.nestnews.R
-import com.kayodedaniel.nestnews.databinding.ActivityMainBinding
+import com.kayodedaniel.nestnews.databinding.ActivityMessageHomeBinding
 import com.kayodedaniel.nestnews.Utilities.Constants
 import com.kayodedaniel.nestnews.Utilities.PreferenceManager
-import com.kayodedaniel.nestnews.activities.SignInActivity
-import com.kayodedaniel.nestnews.databinding.ActivityMessageHomeBinding
 
 class MessageHomeActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMessageHomeBinding
-
     private lateinit var preferenceManager: PreferenceManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,34 +34,20 @@ class MessageHomeActivity : AppCompatActivity() {
         loadUserDetails()
         getToken()
         setListeners()
-
-        val bottomNavigation: BottomNavigationView = findViewById(R.id.bottom_navigation)
-        bottomNavigation.setOnNavigationItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.navigation_home -> {
-                    val intent = Intent(this, MainActivity::class.java)
-                    startActivity(intent)
-                    true
-                }
-                R.id.navigation_message -> {
-                    // Already on Messages
-                    true
-                }
-                else -> false
-            }
-        }
-
     }
 
     private fun loadUserDetails() {
         binding.textName.text = preferenceManager.getString(Constants.KEY_NAME)
         val bytes = Base64.decode(preferenceManager.getString(Constants.KEY_IMAGE), Base64.DEFAULT)
-        val bitmap: Bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+        val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
         binding.imageProfile.setImageBitmap(bitmap)
     }
 
     private fun setListeners() {
         binding.imageSignOut.setOnClickListener { signOut() }
+        binding.fabNewChat.setOnClickListener {
+            startActivity(Intent(applicationContext, UsersActivity::class.java))
+        }
     }
 
     private fun showToast(message: String) {
@@ -77,17 +60,16 @@ class MessageHomeActivity : AppCompatActivity() {
 
     private fun updateToken(token: String) {
         val database = FirebaseFirestore.getInstance()
-        val documentReference = database.collection(Constants.KEY_COLLECTION_USERS)
+        val documentReference: DocumentReference = database.collection(Constants.KEY_COLLECTION_USERS)
             .document(preferenceManager.getString(Constants.KEY_USER_ID)!!)
         documentReference.update(Constants.KEY_FCM_TOKEN, token)
-            .addOnSuccessListener { showToast("Token updated successfully") }
             .addOnFailureListener { showToast("Unable to update token") }
     }
 
     private fun signOut() {
         showToast("Signing out...")
         val database = FirebaseFirestore.getInstance()
-        val documentReference = database.collection(Constants.KEY_COLLECTION_USERS)
+        val documentReference: DocumentReference = database.collection(Constants.KEY_COLLECTION_USERS)
             .document(preferenceManager.getString(Constants.KEY_USER_ID)!!)
         val updates = HashMap<String, Any>()
         updates[Constants.KEY_FCM_TOKEN] = FieldValue.delete()
@@ -95,6 +77,7 @@ class MessageHomeActivity : AppCompatActivity() {
             preferenceManager.clear()
             startActivity(Intent(applicationContext, SignInActivity::class.java))
             finish()
-        }.addOnFailureListener { showToast("Unable to sign out") }
+        }
+            .addOnFailureListener { showToast("Unable to sign out") }
     }
 }
