@@ -23,8 +23,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_20ssp"
             android:text="@string/create_new_account"
-            android:textColor="#FF1A73E8"
-            android:textSize="@dimen/_18ssp"
+            android:textColor="@color/black"
+            android:fontFamily="sans-serif"
+            android:textSize="@dimen/_24ssp"
             android:textStyle="bold" />
 
         <FrameLayout
@@ -47,7 +48,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="@string/add_image"
-                android:textColor="@color/secondary_text"
+                android:textColor="@color/blue"
                 android:textSize="@dimen/_10ssp"/>
 
         </FrameLayout>
@@ -58,6 +59,7 @@
             android:layout_height="@dimen/_45ssp"
             android:layout_marginTop="@dimen/_20ssp"
             android:background="@drawable/background_input"
+            android:fontFamily="@font/nunito"
             android:hint="@string/name"
             android:imeOptions="actionNext"
             android:importantForAutofill="no"
@@ -66,7 +68,7 @@
             android:paddingEnd="@dimen/_16ssp"
             android:textColor="@color/black"
             android:textColorHint="@color/black"
-            android:textSize="@dimen/_13ssp"/>
+            android:textSize="@dimen/_13ssp" />
 
         <EditText
             android:id="@+id/inputEmail"
@@ -74,6 +76,7 @@
             android:layout_height="@dimen/_45ssp"
             android:layout_marginTop="@dimen/_16ssp"
             android:background="@drawable/background_input"
+            android:fontFamily="@font/nunito"
             android:hint="@string/email"
             android:imeOptions="actionNext"
             android:importantForAutofill="no"
@@ -90,6 +93,7 @@
             android:layout_height="@dimen/_45ssp"
             android:layout_marginTop="@dimen/_16ssp"
             android:background="@drawable/background_input"
+            android:fontFamily="@font/nunito"
             android:hint="@string/password"
             android:imeOptions="actionNext"
             android:importantForAutofill="no"
@@ -106,6 +110,7 @@
             android:layout_height="@dimen/_45ssp"
             android:layout_marginTop="@dimen/_16ssp"
             android:background="@drawable/background_input"
+            android:fontFamily="@font/nunito"
             android:hint="@string/confirm_password"
             android:imeOptions="actionDone"
             android:importantForAutofill="no"
@@ -127,8 +132,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_50ssp"
                 android:text="@string/sign_up"
+                android:backgroundTint="@color/blue"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_13ssp"
+                android:fontFamily="@font/nunito"
                 android:textStyle="bold"
                 app:cornerRadius="@dimen/_8ssp"/>
 
@@ -150,7 +157,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_13ssp"
             android:text="@string/sign_in"
-            android:textColor="#FF1A73E8"
+            android:textColor="@color/blue"
+            android:fontFamily="@font/nunito"
             android:textSize="@dimen/_13ssp"
             android:textStyle="bold"/>
 

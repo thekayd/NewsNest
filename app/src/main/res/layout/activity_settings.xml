@@ -26,11 +26,12 @@
 
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/imageProfile"
-            app:riv_corner_radius="@dimen/_10ssp"
             android:layout_width="@dimen/_80ssp"
             android:layout_height="@dimen/_80ssp"
             android:layout_marginEnd="@dimen/_16ssp"
-            android:background="@drawable/background_icon" />
+            android:background="@drawable/background_icon"
+            android:paddingLeft="8dp"
+            app:riv_corner_radius="@dimen/_10ssp" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -39,18 +40,18 @@
 
             <TextView
                 android:id="@+id/textName"
-                android:layout_width="wrap_content"
+                android:layout_width="267dp"
                 android:layout_height="wrap_content"
                 android:textColor="@color/primary_text"
-                android:textSize="@dimen/_16ssp"
+                android:textSize="@dimen/_18ssp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textEmailAdress"
                 android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:textColor="@color/blue"
                 android:textColorHint="@color/blue"
-                android:layout_height="wrap_content"
-                android:textColor="@color/secondary_text"
                 android:textSize="@dimen/_12ssp" />
         </LinearLayout>
     </LinearLayout>
@@ -59,88 +60,91 @@
         android:id="@+id/switch1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="60dp"
         android:drawableStart="@drawable/ic_dark_mode"
         android:drawablePadding="8dp"
+        android:fontFamily="@font/nunito"
         android:minHeight="48dp"
         android:paddingLeft="@dimen/_18ssp"
         android:text="Dark Mode"
         android:textColor="@color/primary_text"
-        android:textSize="@dimen/_14ssp"
-        android:fontFamily="@font/nunito"
+        android:textSize="@dimen/_16ssp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
     <TextView
-        android:id="@+id/textViewEditProfile"
+        android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:drawableStart="@drawable/ic_edit"
+        android:layout_marginTop="30dp"
+        android:drawableStart="@drawable/baseline_bookmark_border_24"
         android:drawablePadding="8dp"
         android:fontFamily="@font/nunito"
         android:paddingLeft="@dimen/_18ssp"
-        android:text="Edit Profile"
-        android:clickable="true"
-        android:focusable="true"
+        android:text="Bookmark"
         android:textColor="@color/primary_text"
-        android:textSize="@dimen/_14ssp"
+        android:textSize="@dimen/_16ssp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/switch1" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewEditProfile" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="30dp"
         android:drawableStart="@drawable/ic_terms_conditions"
         android:drawablePadding="8dp"
         android:fontFamily="@font/nunito"
         android:paddingLeft="@dimen/_18ssp"
         android:text="Terms and Conditions"
         android:textColor="@color/primary_text"
-        android:textSize="@dimen/_14ssp"
+        android:textSize="@dimen/_16ssp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <TextView
+        android:id="@+id/textViewLogout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="30dp"
+        android:clickable="true"
         android:drawableStart="@drawable/ic_logout"
         android:drawablePadding="8dp"
+        android:focusable="true"
         android:fontFamily="@font/nunito"
         android:paddingLeft="@dimen/_18ssp"
         android:text="Log-out"
         android:textColor="@color/black"
-        android:textSize="@dimen/_14ssp"
+        android:textSize="@dimen/_16ssp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/textViewEditProfile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:fontFamily="@font/nunito"
-        android:drawableStart="@drawable/baseline_bookmark_border_24"
+        android:layout_marginTop="30dp"
+        android:clickable="true"
+        android:drawableStart="@drawable/ic_edit"
         android:drawablePadding="8dp"
+        android:focusable="true"
+        android:fontFamily="@font/nunito"
         android:paddingLeft="@dimen/_18ssp"
-        android:text="Bookmark"
+        android:text="Edit Profile"
         android:textColor="@color/primary_text"
-        android:textSize="@dimen/_14ssp"
+        android:textSize="@dimen/_16ssp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewEditProfile" />
+        app:layout_constraintTop_toBottomOf="@+id/switch1" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"

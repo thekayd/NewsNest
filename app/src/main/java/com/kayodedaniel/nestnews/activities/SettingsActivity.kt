@@ -8,7 +8,11 @@ import com.kayodedaniel.nestnews.Utilities.Constants
 import com.kayodedaniel.nestnews.Utilities.PreferenceManager
 import com.kayodedaniel.nestnews.databinding.ActivitySettingsBinding
 import android.util.Base64
+import android.widget.Toast
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.firestore.FieldValue
+import com.google.firebase.firestore.FirebaseFirestore
 import com.kayodedaniel.nestnews.R
 
 class SettingsActivity : AppCompatActivity() {
@@ -28,12 +32,13 @@ class SettingsActivity : AppCompatActivity() {
 
         // Load and display user details immediately when activity starts
         loadUserDetails()
-
+        setListeners()
         // Set the click listener for the Edit Profile text view
         binding.textViewEditProfile.setOnClickListener {
             val intent = Intent(this, ProfileActivity::class.java)
             startActivity(intent)
         }
+
         val bottomNavigation: BottomNavigationView = findViewById(R.id.bottom_navigation)
         bottomNavigation.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
@@ -73,5 +78,28 @@ class SettingsActivity : AppCompatActivity() {
             val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
             binding.imageProfile.setImageBitmap(bitmap)
         }
+    }
+
+    private fun setListeners() {
+        binding.textViewLogout.setOnClickListener { signOut() }
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(applicationContext, message, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun signOut() {
+        showToast("Signing out...")
+        val database = FirebaseFirestore.getInstance()
+        val documentReference: DocumentReference = database.collection(Constants.KEY_COLLECTION_USERS)
+            .document(preferenceManager.getString(Constants.KEY_USER_ID)!!)
+        val updates = HashMap<String, Any>()
+        updates[Constants.KEY_FCM_TOKEN] = FieldValue.delete()
+        documentReference.update(updates).addOnSuccessListener {
+            preferenceManager.clear()
+            startActivity(Intent(applicationContext, SignInActivity::class.java))
+            finish()
+        }
+            .addOnFailureListener { showToast("Unable to sign out") }
     }
 }
