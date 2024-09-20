@@ -72,7 +72,7 @@
         android:layout_marginBottom="@dimen/_80ssp"
         android:contentDescription="@string/app_name"
         android:src="@drawable/ic_add"
-        app:backgroundTint="#FF1A73E8"
+        app:backgroundTint="@color/blue"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:tint="@color/white" />
@@ -81,7 +81,7 @@
         android:id="@+id/bottom_navigation"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="#FF1A73E8"
+        android:background="@color/blue"
         app:itemActiveIndicatorStyle="@style/CardView.Light"
         app:itemIconTint="@color/white"
         app:itemTextColor="@color/white"

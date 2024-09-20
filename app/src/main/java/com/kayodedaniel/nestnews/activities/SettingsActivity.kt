@@ -8,6 +8,8 @@ import com.kayodedaniel.nestnews.Utilities.Constants
 import com.kayodedaniel.nestnews.Utilities.PreferenceManager
 import com.kayodedaniel.nestnews.databinding.ActivitySettingsBinding
 import android.util.Base64
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.kayodedaniel.nestnews.R
 
 class SettingsActivity : AppCompatActivity() {
 
@@ -31,6 +33,31 @@ class SettingsActivity : AppCompatActivity() {
         binding.textViewEditProfile.setOnClickListener {
             val intent = Intent(this, ProfileActivity::class.java)
             startActivity(intent)
+        }
+        val bottomNavigation: BottomNavigationView = findViewById(R.id.bottom_navigation)
+        bottomNavigation.setOnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.navigation_home -> {
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
+
+                R.id.navigation_message -> {
+                    val intent = Intent(this, MessageHomeActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
+
+                R.id.navigation_settings -> {
+                    // Navigate to Settings
+                    val intent = Intent(this, SettingsActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
+
+                else -> false
+            }
         }
     }
 

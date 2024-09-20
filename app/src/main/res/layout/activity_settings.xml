@@ -47,7 +47,8 @@
 
             <TextView
                 android:id="@+id/textEmailAdress"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
+                android:textColorHint="@color/blue"
                 android:layout_height="wrap_content"
                 android:textColor="@color/secondary_text"
                 android:textSize="@dimen/_12ssp" />
@@ -145,7 +146,7 @@
         android:id="@+id/bottom_navigation"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="#FF1A73E8"
+        android:background="@color/blue"
         app:itemActiveIndicatorStyle="@style/CardView.Light"
         app:itemIconTint="@color/white"
         app:itemTextColor="@color/white"
