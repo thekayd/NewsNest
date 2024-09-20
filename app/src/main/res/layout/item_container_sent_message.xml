@@ -27,10 +27,4 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="@+id/textMessage" />
 
-
-
-
-
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

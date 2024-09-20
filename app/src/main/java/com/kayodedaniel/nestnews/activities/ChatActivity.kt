@@ -1,21 +1,30 @@
 package com.kayodedaniel.nestnews.activities
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.kayodedaniel.nestnews.R
+import com.kayodedaniel.nestnews.databinding.ActivityChatBinding
+import com.kayodedaniel.nestnews.models.User
+import com.kayodedaniel.nestnews.Utilities.Constants
 
 class ChatActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityChatBinding
+    private lateinit var receiverUser: User
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_chat)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
+        binding = ActivityChatBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        setListeners()
+        loadReceiverDetails()
+    }
+
+    private fun loadReceiverDetails() {
+        receiverUser = intent.getSerializableExtra(Constants.KEY_USER) as User
+        binding.textName.text = receiverUser.name
+    }
+
+    private fun setListeners() {
+        binding.imageBack.setOnClickListener { onBackPressedDispatcher.onBackPressed() }
     }
 }

@@ -9,9 +9,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.kayodedaniel.nestnews.R
 import com.kayodedaniel.nestnews.databinding.ItemContainerUserBinding
+import com.kayodedaniel.nestnews.listeners.UserListener
 import com.kayodedaniel.nestnews.models.User
 
-class UsersAdapter(private val users: List<User>) : RecyclerView.Adapter<UsersAdapter.UserViewHolder>() {
+class UsersAdapter(private var users: List<User>, private val userListener: UserListener) : RecyclerView.Adapter<UsersAdapter.UserViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
         return UserViewHolder(
@@ -44,6 +45,10 @@ class UsersAdapter(private val users: List<User>) : RecyclerView.Adapter<UsersAd
             } else {
                 // Set a default image or placeholder if user.image is null
                 binding.imageProfile.setImageResource(R.drawable.ic_launcher_background)
+            }
+
+            binding.root.setOnClickListener {
+                userListener.onUserClicked(user)
             }
         }
     }

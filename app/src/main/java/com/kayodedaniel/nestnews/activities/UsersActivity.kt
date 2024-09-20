@@ -1,5 +1,6 @@
 package com.kayodedaniel.nestnews.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -7,11 +8,12 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QueryDocumentSnapshot
 import com.kayodedaniel.nestnews.adapters.UsersAdapter
 import com.kayodedaniel.nestnews.databinding.ActivityUsersBinding
+import com.kayodedaniel.nestnews.listeners.UserListener
 import com.kayodedaniel.nestnews.models.User
 import com.kayodedaniel.nestnews.Utilities.Constants
 import com.kayodedaniel.nestnews.Utilities.PreferenceManager
 
-class UsersActivity : AppCompatActivity() {
+class UsersActivity : AppCompatActivity(), UserListener {
 
     private lateinit var binding: ActivityUsersBinding
     private lateinit var preferenceManager: PreferenceManager
@@ -43,15 +45,16 @@ class UsersActivity : AppCompatActivity() {
                         if (currentUserId == queryDocumentSnapshot.id) {
                             continue
                         }
-                        val user = User()
-                        user.name = queryDocumentSnapshot.getString(Constants.KEY_NAME)
-                        user.email = queryDocumentSnapshot.getString(Constants.KEY_EMAIL)
-                        user.image = queryDocumentSnapshot.getString(Constants.KEY_IMAGE)
-                        user.token = queryDocumentSnapshot.getString(Constants.KEY_FCM_TOKEN)
+                        val user = User().apply {
+                            name = queryDocumentSnapshot.getString(Constants.KEY_NAME)
+                            email = queryDocumentSnapshot.getString(Constants.KEY_EMAIL)
+                            image = queryDocumentSnapshot.getString(Constants.KEY_IMAGE)
+                            token = queryDocumentSnapshot.getString(Constants.KEY_FCM_TOKEN)
+                        }
                         users.add(user)
                     }
-                    if (users.size > 0) {
-                        val usersAdapter = UsersAdapter(users)
+                    if (users.isNotEmpty()) {
+                        val usersAdapter = UsersAdapter(users, this)
                         binding.usersRecyclerView.adapter = usersAdapter
                         binding.usersRecyclerView.visibility = View.VISIBLE
                     } else {
@@ -69,10 +72,15 @@ class UsersActivity : AppCompatActivity() {
     }
 
     private fun loading(isLoading: Boolean) {
-        if (isLoading) {
-            binding.progressBar.visibility = View.VISIBLE
-        } else {
-            binding.progressBar.visibility = View.INVISIBLE
-        }
+        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.INVISIBLE
     }
+
+    override fun onUserClicked(user: User?) {
+        val intent = Intent(applicationContext, ChatActivity::class.java)
+        intent.putExtra(Constants.KEY_USER, user)
+        startActivity(intent)
+        finish()
+    }
+
+
 }
