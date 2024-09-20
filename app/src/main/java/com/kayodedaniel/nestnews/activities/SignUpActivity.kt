@@ -70,6 +70,7 @@ class SignUpActivity : AppCompatActivity() {
                 preferenceManager.putBoolean(Constants.KEY_IS_SIGNED_IN, true)
                 preferenceManager.putString(Constants.KEY_USER_ID, documentReference.id)
                 preferenceManager.putString(Constants.KEY_NAME, binding.inputName.text.toString())
+                preferenceManager.putString(Constants.KEY_EMAIL, binding.inputEmail.text.toString())
                 preferenceManager.putString(Constants.KEY_IMAGE, encodedImage ?: "")
                 val intent = Intent(applicationContext, MainActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)

@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
+    android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clipToPadding="false"
@@ -22,9 +23,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_20ssp"
             android:text="@string/create_new_account"
-            android:textColor="@color/primary_text"
+            android:textColor="#FF1A73E8"
             android:textSize="@dimen/_18ssp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <FrameLayout
             android:id="@+id/layoutImage"
@@ -63,7 +64,8 @@
             android:inputType="text"
             android:paddingStart="@dimen/_16ssp"
             android:paddingEnd="@dimen/_16ssp"
-            android:textColor="@color/primary_text"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
             android:textSize="@dimen/_13ssp"/>
 
         <EditText
@@ -78,7 +80,8 @@
             android:inputType="textEmailAddress"
             android:paddingStart="@dimen/_16ssp"
             android:paddingEnd="@dimen/_16ssp"
-            android:textColor="@color/primary_text"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
             android:textSize="@dimen/_13ssp"/>
 
         <EditText
@@ -93,7 +96,8 @@
             android:inputType="textPassword"
             android:paddingStart="@dimen/_16ssp"
             android:paddingEnd="@dimen/_16ssp"
-            android:textColor="@color/primary_text"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
             android:textSize="@dimen/_13ssp"/>
 
         <EditText
@@ -108,7 +112,8 @@
             android:inputType="textPassword"
             android:paddingStart="@dimen/_16ssp"
             android:paddingEnd="@dimen/_16ssp"
-            android:textColor="@color/primary_text"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
             android:textSize="@dimen/_13ssp"/>
 
         <FrameLayout
@@ -145,7 +150,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_13ssp"
             android:text="@string/sign_in"
-            android:textColor="@color/primary"
+            android:textColor="#FF1A73E8"
             android:textSize="@dimen/_13ssp"
             android:textStyle="bold"/>
 

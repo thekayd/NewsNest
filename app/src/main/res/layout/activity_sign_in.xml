@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
+    android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clipToPadding="false"
@@ -22,7 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_40ssp"
             android:text="@string/welcome_back"
-            android:textColor="@color/primary_text"
+            android:textColor="@color/black"
             android:textSize="@dimen/_18ssp"
             android:textStyle="bold"/>
 
@@ -31,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_4ssp"
             android:text="@string/login_to_continue"
-            android:textColor="@color/secondary_text"
+            android:textColor="@color/black"
             android:textSize="@dimen/_12ssp"
             android:textStyle="bold"/>
 
@@ -41,14 +42,15 @@
             android:layout_height="@dimen/_45ssp"
             android:layout_marginTop="@dimen/_40ssp"
             android:background="@drawable/background_input"
+            android:textColorHint="@color/black"
             android:hint="@string/email"
             android:imeOptions="actionNext"
             android:importantForAutofill="no"
             android:inputType="textEmailAddress"
             android:paddingStart="@dimen/_16ssp"
             android:paddingEnd="@dimen/_16ssp"
-            android:textColor="@color/primary_text"
-            android:textSize="@dimen/_13ssp"/>
+            android:textColor="@color/black"
+            android:textSize="@dimen/_13ssp" />
 
         <EditText
             android:id="@+id/InputPassword"
@@ -56,13 +58,14 @@
             android:layout_height="@dimen/_45ssp"
             android:layout_marginTop="@dimen/_16ssp"
             android:background="@drawable/background_input"
+            android:textColorHint="@color/black"
             android:hint="@string/password"
             android:imeOptions="actionDone"
             android:importantForAutofill="no"
             android:inputType="textPassword"
             android:paddingStart="@dimen/_16ssp"
             android:paddingEnd="@dimen/_16ssp"
-            android:textColor="@color/primary_text"
+            android:textColor="@color/black"
             android:textSize="@dimen/_13ssp"/>
 
         <FrameLayout
@@ -71,11 +74,12 @@
             android:layout_marginTop="@dimen/_20ssp"
             android:animateLayoutChanges="true">
 
-            <com.google.android.material.button.MaterialButton
+            <Button
                 android:id="@+id/buttonSignIn"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_50ssp"
                 android:text="@string/sign_in"
+                android:background="#FF1A73E8"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_13ssp"
                 android:textStyle="bold"
@@ -98,7 +102,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_30ssp"
             android:text="@string/create_new_account"
-            android:textColor="@color/primary"
+            android:textColor="#FF1A73E8"
             android:textSize="@dimen/_13ssp"
             android:textStyle="bold"/>
 

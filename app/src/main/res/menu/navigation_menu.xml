@@ -7,5 +7,10 @@
     <item
         android:id="@+id/navigation_message"
         android:icon="@drawable/ic_message"
+        android:iconTint="@color/white"
         android:title="Messages" />
+    <item
+        android:id="@+id/navigation_settings"
+        android:icon="@drawable/ic_settings"
+        android:title="Settings" />
 </menu>
