@@ -1,46 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="@dimen/_4ssp"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="wrap_content"
+    android:padding="4dp"
+    android:layout_marginTop="@dimen/_8ssp">
 
     <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/imageProfile"
         android:layout_width="@dimen/_25ssp"
         android:layout_height="@dimen/_25ssp"
-        android:background="@drawable/background_image"
         android:scaleType="centerCrop"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginEnd="8dp"
+        app:riv_oval="true"
         app:layout_constraintBottom_toBottomOf="@+id/textMessage"
-        app:riv_oval="true" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textMessage"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_4ssp"
-        android:layout_marginLeft="@dimen/_4ssp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/background_received_message"
-        android:padding="@dimen/_12ssp"
+        android:paddingStart="@dimen/_12ssp"
+        android:paddingTop="@dimen/_8ssp"
+        android:paddingEnd="@dimen/_12ssp"
+        android:paddingBottom="@dimen/_8ssp"
         android:textColor="@color/white"
-        android:textSize="@dimen/_13ssp"
-        app:layout_constraintStart_toEndOf="@+id/imageProfile"
+        android:textSize="13sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.014"
+        app:layout_constraintStart_toEndOf="@id/imageProfile"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintWidth_percent="0.75" />
 
     <TextView
         android:id="@+id/textDateTime"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_4ssp"
+        android:layout_marginTop="4dp"
         android:textColor="@color/secondary_text"
-        android:textSize="@dimen/_10ssp"
+        android:textSize="10sp"
         app:layout_constraintStart_toStartOf="@id/textMessage"
-        app:layout_constraintTop_toBottomOf="@+id/textMessage" />
-
-
-
-
+        app:layout_constraintTop_toBottomOf="@id/textMessage" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

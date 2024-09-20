@@ -64,7 +64,7 @@ class ChatAdapter(
 
         fun setData(chatMessage: ChatMessage) {
             binding.textMessage.text = chatMessage.message
-            binding.textDateTime.text = chatMessage.dataTime
+            binding.textDateTime.text = chatMessage.dateTime
         }
     }
 
@@ -73,7 +73,7 @@ class ChatAdapter(
 
         fun setData(chatMessage: ChatMessage, receiverProfileImage: Bitmap) {
             binding.textMessage.text = chatMessage.message
-            binding.textDateTime.text = chatMessage.dataTime
+            binding.textDateTime.text = chatMessage.dateTime
             binding.imageProfile.setImageBitmap(receiverProfileImage)
         }
     }
