@@ -53,6 +53,10 @@ class ProfileActivity : AppCompatActivity() {
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
             pickImage.launch(intent)
         }
+        binding.btnBack.setOnClickListener {
+            val intent = Intent(this, SettingsActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     // Function to load current user data from Firebase Firestore
