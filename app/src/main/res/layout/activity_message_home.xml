@@ -45,7 +45,6 @@
         android:gravity="center"
         android:maxLines="1"
         android:textColor="@color/white"
-        android:fontFamily="@font/nunito"
         android:textSize="@dimen/_14ssp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@id/imageProfile"
@@ -61,6 +60,23 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageProfile">
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/conversationsRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:orientation="vertical"
+            android:overScrollMode="never"
+            android:padding="@dimen/_20ssp"
+            android:visibility="gone"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="@dimen/_25ssp"
+            android:layout_height="@dimen/_25ssp"
+            android:layout_gravity="center"/>
+
 
     </FrameLayout>
 
@@ -70,25 +86,14 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/_24ssp"
         android:layout_marginRight="@dimen/_24ssp"
-        android:layout_marginBottom="@dimen/_80ssp"
+        android:layout_marginBottom="@dimen/_24ssp"
         android:contentDescription="@string/app_name"
         android:src="@drawable/ic_add"
-        app:backgroundTint="@color/blue"
+        app:backgroundTint="@color/primary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:tint="@color/white" />
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_navigation"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@color/blue"
-        app:itemActiveIndicatorStyle="@style/CardView.Light"
-        app:itemIconTint="@color/white"
-        app:itemTextColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/navigation_menu" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
