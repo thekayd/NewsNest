@@ -55,6 +55,8 @@ dependencies {
     implementation(libs.androidx.recyclerview)
     implementation(libs.ssp.android)
     implementation(libs.multidex)
+    implementation(libs.retrofit)
+    implementation(libs.converterscalars)
 
     // Firebase dependencies
     implementation(platform(libs.firebase.bom))

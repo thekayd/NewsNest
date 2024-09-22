@@ -22,4 +22,5 @@ object Constants {
     const val KEY_RECEIVER_NAME = "receiverName"
     const val KEY_RECEIVER_IMAGE = "receiverImage"
     const val KEY_LAST_MESSAGE = "lastMessage"
+    const val KEY_AVAILABILITY = "availability"
 }

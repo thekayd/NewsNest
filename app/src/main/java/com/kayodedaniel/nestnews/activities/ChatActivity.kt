@@ -22,7 +22,7 @@ import com.kayodedaniel.nestnews.Utilities.PreferenceManager
 import java.text.SimpleDateFormat
 import java.util.*
 
-class ChatActivity : AppCompatActivity() {
+class ChatActivity : BaseActivity() {
 
     private lateinit var binding: ActivityChatBinding
     private lateinit var receiverUser: User
@@ -32,6 +32,7 @@ class ChatActivity : AppCompatActivity() {
     private lateinit var database: FirebaseFirestore
 
     private var conversionId: String? = null
+    private var isReceiverAvailable: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,6 +42,29 @@ class ChatActivity : AppCompatActivity() {
         loadReceiverDetails()
         init()
         listenMessages()
+    }
+
+    private fun listenAvailabilityOfReceiver() {
+        receiverUser.id?.let {
+            database.collection(Constants.KEY_COLLECTION_USERS)
+                .document(it)
+                .addSnapshotListener(this) { value, error ->
+                    if (error != null) {
+                        return@addSnapshotListener
+                    }
+                    if (value != null) {
+                        val availability = value.getLong(Constants.KEY_AVAILABILITY)?.toInt()
+                        if (availability != null) {
+                            isReceiverAvailable = availability == 1
+                        }
+                        if (isReceiverAvailable) {
+                            binding.textAvailability.visibility = View.VISIBLE
+                        } else {
+                            binding.textAvailability.visibility = View.GONE
+                        }
+                    }
+                }
+        }
     }
 
     private fun init() {
@@ -84,6 +108,8 @@ class ChatActivity : AppCompatActivity() {
         }
         binding.inputMessage.text = null
     }
+
+
 
     private fun listenMessages() {
         database.collection(Constants.KEY_COLLECTION_CHAT)
@@ -190,5 +216,10 @@ class ChatActivity : AppCompatActivity() {
             val documentSnapshot = task.result!!.documents[0]
             conversionId = documentSnapshot.id
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        listenAvailabilityOfReceiver()
     }
 }

@@ -20,7 +20,7 @@ import com.kayodedaniel.nestnews.Utilities.Constants
 import com.kayodedaniel.nestnews.Utilities.PreferenceManager
 import java.util.*
 
-class MessageHomeActivity : AppCompatActivity(), ConversionListener {
+class MessageHomeActivity : BaseActivity(), ConversionListener {
 
     private lateinit var binding: ActivityMessageHomeBinding
     private lateinit var preferenceManager: PreferenceManager
