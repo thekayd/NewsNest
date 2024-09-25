@@ -86,7 +86,9 @@ class ProfileActivity : AppCompatActivity() {
         val database = FirebaseFirestore.getInstance()
         val updates = hashMapOf<String, Any>(
             Constants.KEY_NAME to binding.editName.text.toString(),
-            Constants.KEY_EMAIL to binding.editEmail.text.toString()
+            Constants.KEY_EMAIL to binding.editEmail.text.toString(),
+            Constants.KEY_PASSWORD to binding.editConfirmPassword.text.toString()
+
         )
         if (!encodedImage.isNullOrEmpty()) {
             updates[Constants.KEY_IMAGE] = encodedImage!!

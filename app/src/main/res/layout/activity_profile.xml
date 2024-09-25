@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:padding="16dp"
     android:id="@+id/main"
-    android:background="@color/white">
+    android:background="?attr/android:colorBackground">
 
     <!-- Profile Picture -->
     <com.makeramen.roundedimageview.RoundedImageView
@@ -50,7 +50,7 @@
         android:layout_marginTop="20dp"
         android:fontFamily="@font/nunito"
         android:hint="Edit Email"
-        android:textColor="@color/black"
+        android:textColor="?attr/android:textColorPrimary"
         android:minHeight="48dp"
         android:padding="12dp"
         android:textColorHint="@color/secondary_text"
@@ -66,7 +66,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:hint="Confirm new password"
-        android:textColor="@color/black"
+        android:textColor="?attr/android:textColorPrimary"
         android:inputType="textPassword"
         android:fontFamily="@font/nunito"
         android:minHeight="48dp"
@@ -84,7 +84,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:hint="Change Password"
-        android:textColor="@color/black"
+        android:textColor="?attr/android:textColorPrimary"
         android:fontFamily="@font/nunito"
         android:inputType="textPassword"
         android:minHeight="48dp"
@@ -101,7 +101,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
-        android:textColor="@color/black"
+        android:textColor="?attr/android:textColorPrimary"
         android:fontFamily="@font/nunito"
         android:hint="Edit Name"
         android:minHeight="48dp"
@@ -113,9 +113,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/change_profile_photo" />
 
-    <!-- Confirm Password Input Field -->
-
-    <!-- Update Account Button -->
     <Button
         android:id="@+id/btn_update_account"
         android:layout_width="match_parent"

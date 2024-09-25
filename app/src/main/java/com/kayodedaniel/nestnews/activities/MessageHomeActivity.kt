@@ -54,8 +54,9 @@ class MessageHomeActivity : BaseActivity(), ConversionListener {
                     true
                 }
 
-                R.id.navigation_message -> {
-                    val intent = Intent(this, MessageHomeActivity::class.java)
+                R.id.navigation_categories -> {
+                    // Navigate to Settings
+                    val intent = Intent(this, CategoryActivity::class.java)
                     startActivity(intent)
                     true
                 }

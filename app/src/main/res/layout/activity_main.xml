@@ -24,7 +24,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@color/blue"
-        app:itemActiveIndicatorStyle="@style/CardView.Light"
+        app:itemActiveIndicatorStyle="@style/ShapeAppearance.Material3.Corner.None"
         app:itemIconTint="@color/white"
         app:itemTextColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"

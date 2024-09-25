@@ -65,14 +65,14 @@ class SettingsActivity : AppCompatActivity() {
                     startActivity(intent)
                     true
                 }
-                R.id.navigation_message -> {
-                    val intent = Intent(this, MessageHomeActivity::class.java)
+                R.id.navigation_categories -> {
+                    // Navigate to Settings
+                    val intent = Intent(this, CategoryActivity::class.java)
                     startActivity(intent)
                     true
                 }
-                R.id.navigation_settings -> {
-                    // Navigate to Settings
-                    val intent = Intent(this, SettingsActivity::class.java)
+                R.id.navigation_message -> {
+                    val intent = Intent(this, MessageHomeActivity::class.java)
                     startActivity(intent)
                     true
                 }
@@ -126,18 +126,20 @@ class SettingsActivity : AppCompatActivity() {
         binding.DMSwitch.isChecked = isDarkMode
 
         // Listen for switch toggle to change the theme
-        binding.DMSwitch.setOnCheckedChangeListener(null) // Remove any existing listeners
-
         binding.DMSwitch.setOnCheckedChangeListener { _, isChecked ->
+            // Update the theme preference
+            preferenceManager.putBoolean(Constants.KEY_IS_DARK_MODE, isChecked)
+
+            // Set the night mode based on switch state without recreating the activity
             if (isChecked) {
-                // Activate Dark Mode
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-                preferenceManager.putBoolean(Constants.KEY_IS_DARK_MODE, true)
             } else {
-                // Activate Light Mode
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-                preferenceManager.putBoolean(Constants.KEY_IS_DARK_MODE, false)
             }
+
+            // Optionally, you can notify the user about the change
+            showToast("Theme changed to ${if (isChecked) "Dark" else "Light"} mode")
         }
     }
+
 }

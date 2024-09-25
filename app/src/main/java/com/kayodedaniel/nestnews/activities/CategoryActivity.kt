@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.kayodedaniel.nestnews.R
 import com.kayodedaniel.nestnews.Utilities.Constants
 import com.kayodedaniel.nestnews.Utilities.PreferenceManager
@@ -65,5 +66,26 @@ class CategoryActivity : AppCompatActivity() {
             }
         }
         recyclerView.adapter = categoryAdapter
+        val bottomNavigation: BottomNavigationView = findViewById(R.id.bottom_navigation)
+        bottomNavigation.setOnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.navigation_home -> {
+                    // Already on Home
+                    true
+                }
+                R.id.navigation_message -> {
+                    val intent = Intent(this, MessageHomeActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
+                R.id.navigation_settings -> {
+                    // Navigate to Settings
+                    val intent = Intent(this, SettingsActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
+                else -> false
+            }
+        }
     }
 }

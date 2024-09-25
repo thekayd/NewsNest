@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
-    android:background="@color/white">
+    android:background="?attr/android:colorBackground">
 
     <!-- Title for the Terms and Conditions Page -->
     <TextView
@@ -16,7 +16,7 @@
         android:textStyle="bold"
         android:textSize="24sp"
         android:layout_marginBottom="16dp"
-        android:textColor="@color/black"
+        android:textColor="@color/blue"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -42,7 +42,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=""
-            android:textColor="@color/secondary_text"
+            android:textColor="?attr/android:textColorPrimary"
             android:textSize="16sp" />
     </ScrollView>
 
@@ -51,7 +51,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Accept and Continue"
-        android:backgroundTint="@color/primary"
+        android:backgroundTint="@color/blue"
         android:textColor="@color/white"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
