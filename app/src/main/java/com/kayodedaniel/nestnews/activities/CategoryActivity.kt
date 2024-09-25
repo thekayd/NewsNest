@@ -32,10 +32,10 @@ class CategoryActivity : AppCompatActivity() {
                 val intent = Intent(this, TechNewsActivity::class.java)
                 startActivity(intent)
             }else if(category == "Business"){
-                val intent = Intent(this, BusinessActivity::class.java)
+                val intent = Intent(this, BusinessNewsActivity::class.java)
                 startActivity(intent)
             }else if(category == "Opinion"){
-                val intent = Intent(this, OpinionActivity::class.java)
+                val intent = Intent(this, OpinionNewsActivity::class.java)
                 startActivity(intent)
             }else if(category == "World"){
                 val intent = Intent(this, WorldNewsActivity::class.java)
@@ -44,7 +44,7 @@ class CategoryActivity : AppCompatActivity() {
                 val intent = Intent(this, AfricaNewsActivity::class.java)
                 startActivity(intent)
             }else if(category == "South Africa"){
-                val intent = Intent(this, TechNewsActivity::class.java)
+                val intent = Intent(this, SouthAfricaNewsActivity::class.java)
                 startActivity(intent)
             }else if(category == "Top Stories"){
                 val intent = Intent(this, TopStoriesNewsActivity::class.java)

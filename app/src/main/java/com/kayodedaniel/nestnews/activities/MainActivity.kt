@@ -43,6 +43,11 @@ class MainActivity : AppCompatActivity() {
                     // Already on Home
                     true
                 }
+                R.id.navigation_categories -> {
+                    val intent = Intent(this, CategoryActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
                 R.id.navigation_message -> {
                     val intent = Intent(this, MessageHomeActivity::class.java)
                     startActivity(intent)

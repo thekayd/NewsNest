@@ -14,10 +14,10 @@
         app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/sportTitle" />
+        app:layout_constraintTop_toBottomOf="@id/OpinionTitle" />
 
     <TextView
-        android:id="@+id/sportTitle"
+        android:id="@+id/OpinionTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Opinion News"

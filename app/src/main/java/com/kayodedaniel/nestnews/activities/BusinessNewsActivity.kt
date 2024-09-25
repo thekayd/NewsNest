@@ -4,25 +4,23 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.kayodedaniel.nestnews.ArticleDetailActivity
 import com.kayodedaniel.nestnews.R
 import com.kayodedaniel.nestnews.api.NewsService
-import com.kayodedaniel.nestnews.databinding.ActivityBusinessBinding
-import com.kayodedaniel.nestnews.databinding.ActivitySportNewsBinding
+import com.kayodedaniel.nestnews.databinding.ActivityBusinessNewsBinding
 import com.kayodedaniel.nestnews.model.NewsResponse
 import com.kayodedaniel.nestnews.ui.ArticleAdapter
 import retrofit2.*
 import retrofit2.converter.gson.GsonConverterFactory
 
-class BusinessActivity : AppCompatActivity() {
+class BusinessNewsActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityBusinessBinding
+    private lateinit var binding: ActivityBusinessNewsBinding
     private lateinit var articleAdapter: ArticleAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityBusinessBinding.inflate(layoutInflater)
+        binding = ActivityBusinessNewsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         binding.BusinessRecyclerView.layoutManager = LinearLayoutManager(this)
@@ -37,7 +35,7 @@ class BusinessActivity : AppCompatActivity() {
         binding.BusinessRecyclerView.adapter = articleAdapter
 
         // Fetch sports articles
-        fetchSportsArticles()
+        fetchBusinessNewsArticles()
 
         // Bottom navigation handling
         binding.bottomNavigation.setOnNavigationItemSelectedListener { item ->
@@ -67,7 +65,7 @@ class BusinessActivity : AppCompatActivity() {
         }
     }
 
-    private fun fetchSportsArticles() {
+    private fun fetchBusinessNewsArticles() {
         val retrofit = Retrofit.Builder()
             .baseUrl("https://opsc7312.nerfdesigns.com/")
             .addConverterFactory(GsonConverterFactory.create())
@@ -76,7 +74,7 @@ class BusinessActivity : AppCompatActivity() {
         val newsService = retrofit.create(NewsService::class.java)
 
         // Fetch sports news specifically by category
-        newsService.getSportsArticles().enqueue(object : Callback<NewsResponse> {
+        newsService.getBusinessArticles().enqueue(object : Callback<NewsResponse> {
             override fun onResponse(call: Call<NewsResponse>, response: Response<NewsResponse>) {
                 if (response.isSuccessful) {
                     response.body()?.articles?.let { articles ->

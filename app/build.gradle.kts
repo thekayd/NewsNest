@@ -58,6 +58,7 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.converterscalars)
 
+
     // Firebase dependencies
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.analytics.ktx)

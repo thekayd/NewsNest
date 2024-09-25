@@ -13,4 +13,6 @@
     <string name="select_user">Select User</string>
     <string name="type_a_message">Type a Message...</string>
     <string name="active">Active</string>
+    <string name="favorite_icon">Favorite Icon</string>
+    <string name="tech_news">Tech News</string>
 </resources>
