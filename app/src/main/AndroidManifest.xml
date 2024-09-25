@@ -16,6 +16,9 @@
         android:theme="@style/Theme.NestNews"
         tools:targetApi="31">
         <activity
+            android:name=".activities.TermsAndConditions"
+            android:exported="false" />
+        <activity
             android:name=".activities.ProfileActivity"
             android:exported="false" />
         <activity
