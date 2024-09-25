@@ -1,8 +1,10 @@
 package com.kayodedaniel.nestnews.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.kayodedaniel.nestnews.R
 import java.io.BufferedReader
@@ -22,12 +24,14 @@ class TermsAndConditions : AppCompatActivity() {
 
         val acceptButton = findViewById<Button>(R.id.button_accept_terms)
         acceptButton.setOnClickListener {
-            // Save user acceptance to shared preferences or database
-            // Then redirect to the next activity or previous screen
-            finish()  // This can be changed to navigate to another activity
+            showToast("T&C's Accepted")
+            val intent = Intent(this, SettingsActivity::class.java)
+            startActivity(intent)
         }
     }
-
+    private fun showToast(message: String) {
+        Toast.makeText(applicationContext, message, Toast.LENGTH_SHORT).show()
+    }
     // Function to read the file from the raw resource
     private fun readTextFileFromRawResource(resourceId: Int): String {
         val inputStream = resources.openRawResource(resourceId)
@@ -37,7 +41,7 @@ class TermsAndConditions : AppCompatActivity() {
         try {
             while ((reader.readLine().also { line = it }) != null) {
                 stringBuilder.append(line)
-                stringBuilder.append("\n") // Add a newline after each line
+                stringBuilder.append("\n")
             }
             reader.close()
         } catch (e: Exception) {
