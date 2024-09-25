@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
-    android:background="@color/white"
+    android:background="?attr/android:colorBackground"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clipToPadding="false"
@@ -24,7 +24,7 @@
             android:layout_marginTop="@dimen/_40ssp"
             android:fontFamily="sans-serif"
             android:text="@string/welcome_back"
-            android:textColor="@color/black"
+            android:textColor="?attr/android:textColorPrimary"
             android:textSize="@dimen/_24ssp"
             android:textStyle="bold" />
 
@@ -33,7 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_4ssp"
             android:text="@string/login_to_continue"
-            android:textColor="@color/black"
+            android:textColor="?attr/android:textColorPrimary"
             android:fontFamily="sans-serif"
             android:textSize="@dimen/_16ssp"
             android:textStyle="bold"/>

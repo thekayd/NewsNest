@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
-    android:background="@color/white"
+    android:background="?attr/android:colorBackground"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clipToPadding="false"
@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_20ssp"
             android:text="@string/create_new_account"
-            android:textColor="@color/black"
+            android:textColor="?attr/android:textColorPrimary"
             android:fontFamily="sans-serif"
             android:textSize="@dimen/_24ssp"
             android:textStyle="bold" />

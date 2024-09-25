@@ -9,6 +9,7 @@ import com.kayodedaniel.nestnews.Utilities.PreferenceManager
 import com.kayodedaniel.nestnews.databinding.ActivitySettingsBinding
 import android.util.Base64
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatDelegate
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FieldValue
@@ -30,20 +31,32 @@ class SettingsActivity : AppCompatActivity() {
         // Initialize preference manager
         preferenceManager = PreferenceManager(applicationContext)
 
+        // Ensuring that the theme is saved on start up based on the users preference
+        val isDarkMode = preferenceManager.getBoolean(Constants.KEY_IS_DARK_MODE, false)
+        AppCompatDelegate.setDefaultNightMode(if (isDarkMode) {
+            AppCompatDelegate.MODE_NIGHT_YES
+        } else {
+            AppCompatDelegate.MODE_NIGHT_NO
+        })
+
         // Load and display user details immediately when activity starts
         loadUserDetails()
         setListeners()
+        initDarkModeSwitch() // Initialize Dark Mode switch
+
         // Set the click listener for the Edit Profile text view
         binding.textViewEditProfile.setOnClickListener {
             val intent = Intent(this, ProfileActivity::class.java)
             startActivity(intent)
         }
 
+        // Terms and Conditions Click
         binding.textTermsAndConditions.setOnClickListener {
             val intent = Intent(this, TermsAndConditions::class.java)
             startActivity(intent)
         }
 
+        // Bottom navigation listener
         val bottomNavigation: BottomNavigationView = findViewById(R.id.bottom_navigation)
         bottomNavigation.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
@@ -52,20 +65,17 @@ class SettingsActivity : AppCompatActivity() {
                     startActivity(intent)
                     true
                 }
-
                 R.id.navigation_message -> {
                     val intent = Intent(this, MessageHomeActivity::class.java)
                     startActivity(intent)
                     true
                 }
-
                 R.id.navigation_settings -> {
                     // Navigate to Settings
                     val intent = Intent(this, SettingsActivity::class.java)
                     startActivity(intent)
                     true
                 }
-
                 else -> false
             }
         }
@@ -86,6 +96,7 @@ class SettingsActivity : AppCompatActivity() {
     }
 
     private fun setListeners() {
+        // Logout listener
         binding.textViewLogout.setOnClickListener { signOut() }
     }
 
@@ -104,7 +115,29 @@ class SettingsActivity : AppCompatActivity() {
             preferenceManager.clear()
             startActivity(Intent(applicationContext, SignInActivity::class.java))
             finish()
+        }.addOnFailureListener {
+            showToast("Unable to sign out")
         }
-            .addOnFailureListener { showToast("Unable to sign out") }
+    }
+
+    private fun initDarkModeSwitch() {
+        // Set the switch state based on the saved preference
+        val isDarkMode = preferenceManager.getBoolean(Constants.KEY_IS_DARK_MODE, false)
+        binding.DMSwitch.isChecked = isDarkMode
+
+        // Listen for switch toggle to change the theme
+        binding.DMSwitch.setOnCheckedChangeListener(null) // Remove any existing listeners
+
+        binding.DMSwitch.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                // Activate Dark Mode
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                preferenceManager.putBoolean(Constants.KEY_IS_DARK_MODE, true)
+            } else {
+                // Activate Light Mode
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                preferenceManager.putBoolean(Constants.KEY_IS_DARK_MODE, false)
+            }
+        }
     }
 }

@@ -1,6 +1,7 @@
 package com.kayodedaniel.nestnews.Utilities
 
 object Constants {
+    const val KEY_IS_DARK_MODE = "is_dark_mode"
     const val KEY_COLLECTION_USERS = "users"
     const val KEY_NAME = "name"
     const val KEY_EMAIL = "email"

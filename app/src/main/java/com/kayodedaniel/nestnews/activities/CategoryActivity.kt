@@ -3,19 +3,32 @@ package com.kayodedaniel.nestnews.activities
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.kayodedaniel.nestnews.R
+import com.kayodedaniel.nestnews.Utilities.Constants
+import com.kayodedaniel.nestnews.Utilities.PreferenceManager
 import com.kayodedaniel.nestnews.ui.CategoryAdapter
 
 class CategoryActivity : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var categoryAdapter: CategoryAdapter
+    private lateinit var preferenceManager: PreferenceManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_category)
+
+        preferenceManager = PreferenceManager(applicationContext)
+
+        val isDarkMode = preferenceManager.getBoolean(Constants.KEY_IS_DARK_MODE, false)
+        AppCompatDelegate.setDefaultNightMode(if (isDarkMode) {
+            AppCompatDelegate.MODE_NIGHT_YES
+        } else {
+            AppCompatDelegate.MODE_NIGHT_NO
+        })
 
         recyclerView = findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)

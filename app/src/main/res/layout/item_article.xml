@@ -29,7 +29,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:ellipsize="end"
         android:maxLines="2"
-        android:textColor="@color/black" />
+        android:textColor="?attr/android:textColorPrimary" />
 
     <TextView
         android:id="@+id/descriptionTextView"
@@ -43,7 +43,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:ellipsize="end"
         android:maxLines="2"
-        android:textColor="@color/black" />
+        android:textColor="?attr/android:textColorPrimary" />
 
     <TextView
         android:id="@+id/articleSource"
@@ -52,7 +52,7 @@
         android:layout_marginTop="4dp"
         android:fontFamily="@font/poppins_medium"
         android:text="SOURCE"
-        android:textColor="@color/blueish"
+        android:textColor="@color/blue"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
@@ -62,10 +62,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:text="DATE TIME"
+        android:text="NewsNest"
         android:textSize="11sp"
         android:layout_marginStart="8dp"
-        android:textColor="@color/black"
+        android:textColor="@color/blue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/descriptionTextView" />
 

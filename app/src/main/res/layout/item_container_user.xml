@@ -31,7 +31,7 @@
         android:layout_marginEnd="@dimen/_8ssp"
         android:ellipsize="end"
         android:maxLines="1"
-        android:textColor="@color/primary_text"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toTopOf="@+id/viewSUpporter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/imageProfile"/>
@@ -44,7 +44,7 @@
         android:layout_marginEnd="@dimen/_8ssp"
         android:ellipsize="end"
         android:maxLines="1"
-        android:textColor="@color/primary_text"
+        android:textColor="@color/blue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/imageProfile"
         app:layout_constraintTop_toBottomOf="@id/viewSUpporter"/>
