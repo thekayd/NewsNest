@@ -39,6 +39,11 @@ class SettingsActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        binding.textTermsAndConditions.setOnClickListener {
+            val intent = Intent(this, TermsAndConditions::class.java)
+            startActivity(intent)
+        }
+
         val bottomNavigation: BottomNavigationView = findViewById(R.id.bottom_navigation)
         bottomNavigation.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {

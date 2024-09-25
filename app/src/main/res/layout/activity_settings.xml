@@ -92,12 +92,14 @@
         app:layout_constraintTop_toBottomOf="@+id/textViewEditProfile" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/textTermsAndConditions"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:drawableStart="@drawable/ic_terms_conditions"
         android:drawablePadding="8dp"
+        android:clickable="true"
+        android:focusable="true"
         android:fontFamily="@font/nunito"
         android:paddingLeft="@dimen/_18ssp"
         android:text="Terms and Conditions"
@@ -125,7 +127,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintTop_toBottomOf="@+id/textTermsAndConditions" />
 
     <TextView
         android:id="@+id/textViewEditProfile"

@@ -8,9 +8,11 @@ import android.util.Base64
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.firestore.*
 import com.google.firebase.firestore.EventListener
 import com.google.firebase.messaging.FirebaseMessaging
+import com.kayodedaniel.nestnews.R
 import com.kayodedaniel.nestnews.adapters.RecentConversationsAdapter
 import com.kayodedaniel.nestnews.databinding.ActivityMessageHomeBinding
 import com.kayodedaniel.nestnews.listeners.ConversionListener
@@ -43,6 +45,31 @@ class MessageHomeActivity : BaseActivity(), ConversionListener {
         getToken()
         setListeners()
         listenConversations()
+        val bottomNavigation: BottomNavigationView = findViewById(R.id.bottom_navigation)
+        bottomNavigation.setOnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.navigation_home -> {
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
+
+                R.id.navigation_message -> {
+                    val intent = Intent(this, MessageHomeActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
+
+                R.id.navigation_settings -> {
+                    // Navigate to Settings
+                    val intent = Intent(this, SettingsActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
+
+                else -> false
+            }
+        }
     }
 
     private fun init() {

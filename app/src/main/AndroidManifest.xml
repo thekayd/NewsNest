@@ -43,6 +43,9 @@
             android:name=".activities.CategoryActivity"
             android:exported="false" />
         <activity
+            android:name=".activities.TermsAndConditions"
+            android:exported="false" />
+        <activity
             android:name=".activities.ProfileActivity"
             android:exported="false" />
         <activity
