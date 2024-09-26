@@ -153,6 +153,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@color/blue"
+        app:labelVisibilityMode="labeled"
+        android:visibility="visible"
         app:itemActiveIndicatorStyle="@style/CardView.Light"
         app:itemIconTint="@color/white"
         app:itemTextColor="@color/white"
