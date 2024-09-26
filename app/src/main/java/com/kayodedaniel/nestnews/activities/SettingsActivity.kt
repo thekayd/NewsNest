@@ -20,6 +20,7 @@ class SettingsActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySettingsBinding
     private lateinit var preferenceManager: PreferenceManager
+    private var currentMode: Int = AppCompatDelegate.MODE_NIGHT_NO // Default to Light mode
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,18 +32,18 @@ class SettingsActivity : AppCompatActivity() {
         // Initialize preference manager
         preferenceManager = PreferenceManager(applicationContext)
 
-        // Ensuring that the theme is saved on start up based on the users preference
-        val isDarkMode = preferenceManager.getBoolean(Constants.KEY_IS_DARK_MODE, false)
-        AppCompatDelegate.setDefaultNightMode(if (isDarkMode) {
+        // Get the current theme preference and apply it
+        currentMode = if (preferenceManager.getBoolean(Constants.KEY_IS_DARK_MODE, false)) {
             AppCompatDelegate.MODE_NIGHT_YES
         } else {
             AppCompatDelegate.MODE_NIGHT_NO
-        })
+        }
+        AppCompatDelegate.setDefaultNightMode(currentMode)
 
         // Load and display user details immediately when activity starts
         loadUserDetails()
         setListeners()
-        initDarkModeSwitch() // Initialize Dark Mode switch
+        initDarkModeSwitch()
 
         // Set the click listener for the Edit Profile text view
         binding.textViewEditProfile.setOnClickListener {
@@ -101,6 +102,7 @@ class SettingsActivity : AppCompatActivity() {
     }
 
     private fun showToast(message: String) {
+        // Prevent multiple queued toasts by adding a limit check or using a different method
         Toast.makeText(applicationContext, message, Toast.LENGTH_SHORT).show()
     }
 
@@ -122,24 +124,34 @@ class SettingsActivity : AppCompatActivity() {
 
     private fun initDarkModeSwitch() {
         // Set the switch state based on the saved preference
-        val isDarkMode = preferenceManager.getBoolean(Constants.KEY_IS_DARK_MODE, false)
+        val isDarkMode = currentMode == AppCompatDelegate.MODE_NIGHT_YES
         binding.DMSwitch.isChecked = isDarkMode
 
         // Listen for switch toggle to change the theme
         binding.DMSwitch.setOnCheckedChangeListener { _, isChecked ->
-            // Update the theme preference
-            preferenceManager.putBoolean(Constants.KEY_IS_DARK_MODE, isChecked)
-
-            // Set the night mode based on switch state without recreating the activity
-            if (isChecked) {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            val newMode = if (isChecked) {
+                AppCompatDelegate.MODE_NIGHT_YES
             } else {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                AppCompatDelegate.MODE_NIGHT_NO
             }
 
-            // Optionally, you can notify the user about the change
-            showToast("Theme changed to ${if (isChecked) "Dark" else "Light"} mode")
+            if (newMode != currentMode) {
+                currentMode = newMode
+                // Update the theme preference
+                preferenceManager.putBoolean(Constants.KEY_IS_DARK_MODE, isChecked)
+
+                // Restart the activity to apply the new theme
+                recreateActivityForThemeChange()
+            } else {
+                showToast("Theme is already ${if (isChecked) "Dark" else "Light"}")
+            }
         }
     }
 
+    private fun recreateActivityForThemeChange() {
+        // Restart the activity to apply the new theme smoothly
+        finish()
+        startActivity(Intent(this, SettingsActivity::class.java))
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+    }
 }
