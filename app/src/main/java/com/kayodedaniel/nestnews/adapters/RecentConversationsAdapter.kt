@@ -16,6 +16,7 @@ class RecentConversationsAdapter(
     private val conversionListener: ConversionListener
 ) : RecyclerView.Adapter<RecentConversationsAdapter.ConversionViewHolder>() {
 
+    // Creates the view for each recent conversation item
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ConversionViewHolder {
         return ConversionViewHolder(
             ItemContainerRecentConversionBinding.inflate(
@@ -26,26 +27,28 @@ class RecentConversationsAdapter(
         )
     }
 
+    // Binds the data of the chat message to the view
     override fun onBindViewHolder(holder: ConversionViewHolder, position: Int) {
         holder.setData(chatMessages[position])
     }
 
     override fun getItemCount(): Int {
-        return chatMessages.size
+        return chatMessages.size // Returns the number of recent conversations
     }
 
+    // ViewHolder class to hold and manage the view for each conversation
     inner class ConversionViewHolder(val binding: ItemContainerRecentConversionBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
+        // Sets data for each chat message in the list, including conversion image, name, and recent message
         fun setData(chatMessage: ChatMessage) {
             binding.imageProfile.setImageBitmap(chatMessage.conversionImage?.let {
-                getConversionImage(
-                    it
-                )
+                getConversionImage(it) // Decodes and sets the image
             })
             binding.textName.text = chatMessage.conversionName
             binding.textRecentMessage.text = chatMessage.message
             binding.root.setOnClickListener {
+                // Creates a User object from the chat message data and triggers the conversation listener
                 val user = User().apply {
                     id = chatMessage.conversionId
                     name = chatMessage.conversionName
@@ -56,6 +59,7 @@ class RecentConversationsAdapter(
         }
     }
 
+    // Helper function to decode the Base64-encoded profile image
     private fun getConversionImage(encodedImage: String): Bitmap {
         val bytes = Base64.decode(encodedImage, Base64.DEFAULT)
         return BitmapFactory.decodeByteArray(bytes, 0, bytes.size)

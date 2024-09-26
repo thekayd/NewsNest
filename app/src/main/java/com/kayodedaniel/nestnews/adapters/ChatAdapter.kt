@@ -15,10 +15,11 @@ class ChatAdapter(
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
-        const val VIEW_TYPE_SENT = 1
-        const val VIEW_TYPE_RECEIVED = 2
+        const val VIEW_TYPE_SENT = 1 // Constant for sent messages
+        const val VIEW_TYPE_RECEIVED = 2 // Constant for received messages
     }
 
+    // Inflates the appropriate layout based on whether the message is sent or received
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (viewType == VIEW_TYPE_SENT) {
             SentMessageViewHolder(
@@ -39,6 +40,7 @@ class ChatAdapter(
         }
     }
 
+    // Binds the correct data to the ViewHolder based on message type
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (getItemViewType(position) == VIEW_TYPE_SENT) {
             (holder as SentMessageViewHolder).setData(chatMessages[position])
@@ -48,9 +50,10 @@ class ChatAdapter(
     }
 
     override fun getItemCount(): Int {
-        return chatMessages.size
+        return chatMessages.size // Returns the number of chat messages
     }
 
+    // Determines if the message is sent or received based on senderId
     override fun getItemViewType(position: Int): Int {
         return if (chatMessages[position].senderId == senderId) {
             VIEW_TYPE_SENT
@@ -59,6 +62,7 @@ class ChatAdapter(
         }
     }
 
+    // ViewHolder for sent messages
     class SentMessageViewHolder(private val binding: ItemContainerSentMessageBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
@@ -68,6 +72,7 @@ class ChatAdapter(
         }
     }
 
+    // ViewHolder for received messages
     class ReceivedMessageViewHolder(private val binding: ItemContainerReceiveMessageBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
