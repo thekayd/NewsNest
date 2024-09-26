@@ -25,60 +25,64 @@ import java.util.*
 
 class SignUpActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivitySignUpBinding
-    private var encodedImage: String? = null
-    private lateinit var preferenceManager: PreferenceManager
+    private lateinit var binding: ActivitySignUpBinding //Binding for the layout
+    private var encodedImage: String? = null // Varaible to hold the encoded image
+    private lateinit var preferenceManager: PreferenceManager // For managing preferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySignUpBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        preferenceManager = PreferenceManager(applicationContext)
-        setListeners()
+        preferenceManager = PreferenceManager(applicationContext) //Initilize preferences
+        setListeners() //Set listeners for buttons and clicks
     }
 
     private fun setListeners() {
+        //Go back to previous screen when text is clicked
         binding.textSignIn.setOnClickListener { onBackPressedDispatcher.onBackPressed() }
+        //Sign u button click listener
         binding.buttonSignUp.setOnClickListener {
-            if (isValidSignUpDetails()) {
+            if (isValidSignUpDetails()) { //If details are valid call the sign  up function
                 signUp()
             }
         }
-        binding.layoutImage.setOnClickListener {
+        binding.layoutImage.setOnClickListener {//click listener for image
             val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)//grant permission
             pickImage.launch(intent)
         }
     }
-
+    //show toast message
     private fun showToast(message: String) {
         Toast.makeText(applicationContext, message, Toast.LENGTH_SHORT).show()
     }
 
     private fun signUp() {
-        loading(true)
-        val database = FirebaseFirestore.getInstance()
-        val user = HashMap<String, Any>()
-        user[Constants.KEY_NAME] = binding.inputName.text.toString()
-        user[Constants.KEY_EMAIL] = binding.inputEmail.text.toString()
-        user[Constants.KEY_PASSWORD] = binding.InputPassword.text.toString()
-        user[Constants.KEY_IMAGE] = encodedImage ?: ""
-        database.collection(Constants.KEY_COLLECTION_USERS)
+        loading(true)//show loading progress
+        val database = FirebaseFirestore.getInstance()//get firestore instance
+        val user = HashMap<String, Any>()//create a user map to store data
+        user[Constants.KEY_NAME] = binding.inputName.text.toString()//get name
+        user[Constants.KEY_EMAIL] = binding.inputEmail.text.toString()//get email
+        user[Constants.KEY_PASSWORD] = binding.InputPassword.text.toString()//get password
+        user[Constants.KEY_IMAGE] = encodedImage ?: ""// get encoded image
+        database.collection(Constants.KEY_COLLECTION_USERS)//add user to firestore database
             .add(user)
             .addOnSuccessListener { documentReference ->
-                loading(false)
+                loading(false)//hide loading progress
+                //save user data to preferences
                 preferenceManager.putBoolean(Constants.KEY_IS_SIGNED_IN, true)
                 preferenceManager.putString(Constants.KEY_USER_ID, documentReference.id)
                 preferenceManager.putString(Constants.KEY_NAME, binding.inputName.text.toString())
                 preferenceManager.putString(Constants.KEY_EMAIL, binding.inputEmail.text.toString())
                 preferenceManager.putString(Constants.KEY_IMAGE, encodedImage ?: "")
+                //start main activity after successful sign up
                 val intent = Intent(applicationContext, MainActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
                 startActivity(intent)
             }
             .addOnFailureListener { exception ->
                 loading(false)
-                showToast(exception.message ?: "An error occurred")
+                showToast(exception.message ?: "An error occurred")//show error message
             }
     }
 
@@ -91,24 +95,24 @@ class SignUpActivity : AppCompatActivity() {
         val bytes = byteArrayOutputStream.toByteArray()
         return Base64.encodeToString(bytes, Base64.DEFAULT)
     }
-
+    //activity result launcher for picking images
     private val pickImage: ActivityResultLauncher<Intent> = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
-        if (result.resultCode == RESULT_OK && result.data != null) {
-            val imageUri: Uri? = result.data?.data
+        if (result.resultCode == RESULT_OK && result.data != null) { // Check if result is OK
+            val imageUri: Uri? = result.data?.data // Get the image URI
             try {
-                val inputStream: InputStream? = contentResolver.openInputStream(imageUri!!)
-                val bitmap = BitmapFactory.decodeStream(inputStream)
-                binding.imageProfile.setImageBitmap(bitmap)
-                binding.textAddImage.visibility = View.GONE
-                encodedImage = encodeImage(bitmap)
+                val inputStream: InputStream? = contentResolver.openInputStream(imageUri!!) // Open input stream
+                val bitmap = BitmapFactory.decodeStream(inputStream) // Decode the stream to bitmap
+                binding.imageProfile.setImageBitmap(bitmap) // Set the bitmap to ImageView
+                binding.textAddImage.visibility = View.GONE // Hide add image text
+                encodedImage = encodeImage(bitmap) // Encode the image
             } catch (e: FileNotFoundException) {
-                e.printStackTrace()
+                e.printStackTrace() // Print stack trace for errors
             }
         }
     }
-
+    //check if all sign up details are valid and if not return error message
     private fun isValidSignUpDetails(): Boolean {
         return when {
             encodedImage == null -> {
@@ -142,7 +146,7 @@ class SignUpActivity : AppCompatActivity() {
             else -> true
         }
     }
-
+    //show or hide loading progress based on isLoading
     private fun loading(isLoading: Boolean) {
         if (isLoading) {
             binding.buttonSignUp.visibility = View.INVISIBLE
