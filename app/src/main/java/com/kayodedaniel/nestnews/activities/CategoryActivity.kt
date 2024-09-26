@@ -70,7 +70,8 @@ class CategoryActivity : AppCompatActivity() {
         bottomNavigation.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.navigation_home -> {
-                    // Already on Home
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
                     true
                 }
                 R.id.navigation_message -> {
