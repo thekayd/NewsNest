@@ -2,6 +2,7 @@ package com.kayodedaniel.nestnews.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kayodedaniel.nestnews.ArticleDetailActivity
@@ -18,26 +19,31 @@ class AfricaNewsActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAfricaNewsBinding
     private lateinit var articleAdapter: ArticleAdapter
 
+    //this function creates the instances of the Africa News Activity
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAfricaNewsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // Inflates the activity's layout using view binding
         binding.AfricaRecyclerView.layoutManager = LinearLayoutManager(this)
 
-        // Initialize adapter and set click listener to open article detail
+        // Initializes the ArticleAdapter and define the click listener for each article
+        // When an article is clicked, the app opens ArticleDetailActivity with the article's link passed as an extra
         articleAdapter = ArticleAdapter { article ->
             val intent = Intent(this, ArticleDetailActivity::class.java).apply {
                 putExtra("link", article.link)
             }
             startActivity(intent)
         }
+        // Attaches the adapter to the RecyclerView to display the articles
         binding.AfricaRecyclerView.adapter = articleAdapter
 
-        // Fetch sports articles
+        // Fetches articles specifically for Africa news
         fetchAfricaNewsArticles()
 
-        // Bottom navigation handling
+        // Handles bottom navigation bar item selections
+        // Based on the item clicked, the app navigates to different activities
         binding.bottomNavigation.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.navigation_home -> {
@@ -65,16 +71,20 @@ class AfricaNewsActivity : AppCompatActivity() {
         }
     }
 
+    // Function to fetch African news articles from the API
     private fun fetchAfricaNewsArticles() {
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://opsc7312.nerfdesigns.com/")
-            .addConverterFactory(GsonConverterFactory.create())
+            .baseUrl("https://opsc7312.nerfdesigns.com/") // Base URL of the API
+            .addConverterFactory(GsonConverterFactory.create())// Convert JSON responses to Kotlin objects
             .build()
 
+        // Creates an instance of the NewsService interface to define the API methods
         val newsService = retrofit.create(NewsService::class.java)
 
-        // Fetch sports news specifically by category
+        // Fetches African news specifically by category
+        // Makes an asynchronous call to fetch African articles from the API
         newsService.getAfricaArticles().enqueue(object : Callback<NewsResponse> {
+            // Handles a successful response
             override fun onResponse(call: Call<NewsResponse>, response: Response<NewsResponse>) {
                 if (response.isSuccessful) {
                     response.body()?.articles?.let { articles ->
@@ -83,8 +93,10 @@ class AfricaNewsActivity : AppCompatActivity() {
                 }
             }
 
+            // Handles a failure in the network request
             override fun onFailure(call: Call<NewsResponse>, t: Throwable) {
-                // Handle failure
+                // Handles failure
+                Toast.makeText(this@AfricaNewsActivity, "Error Can't load Articles!", Toast.LENGTH_SHORT).show();
             }
         })
     }
