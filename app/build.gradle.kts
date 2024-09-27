@@ -57,6 +57,16 @@ dependencies {
     implementation(libs.multidex)
     implementation(libs.retrofit)
     implementation(libs.converterscalars)
+    testImplementation ("junit:junit:4.13.2")
+
+
+    testImplementation("org.mockito:mockito-core:4.10.0")
+    testImplementation("org.mockito:mockito-inline:4.10.0")
+    androidTestImplementation("org.mockito:mockito-android:4.10.0")
+
+    // Espresso UI testing
+    androidTestImplementation ("androidx.test.espresso:espresso-core:3.5.0")
+    androidTestImplementation ("androidx.test.ext:junit:1.1.5")
 
 
     // Firebase dependencies
@@ -66,6 +76,8 @@ dependencies {
     implementation(libs.makeramen.roundedimageview)
     implementation(libs.firebase.messaging)
     implementation(libs.firebase.firestore)
+    implementation("junit:junit:4.12")
+    implementation(libs.androidx.junit.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

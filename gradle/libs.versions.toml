@@ -23,6 +23,7 @@ firebaseMessaging = "24.0.1"
 firebaseFirestore = "25.1.0"
 converterscalars = "2.9.0"
 appwrite = "6.0.0"
+junitKtx = "1.2.1"
 
 
 
@@ -51,6 +52,7 @@ firebase-firestore = { group = "com.google.firebase", name = "firebase-firestore
 retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
 converterscalars = { group = "com.squareup.retrofit2", name = "converter-scalars", version.ref = "converterscalars" }
 appwrite-sdk = { group = "io.appwrite", name = "sdk-for-android", version.ref = "appwrite" }
+androidx-junit-ktx = { group = "androidx.test.ext", name = "junit-ktx", version.ref = "junitKtx" }
 
 
 
