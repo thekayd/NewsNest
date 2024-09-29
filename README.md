@@ -47,7 +47,7 @@ Run Application:
 - Choose whether to run the application with or without debugging (preferably without for faster performance).
 
 Launch Application:
-- The application will be installed and launched on your connected device. You will see the ShiftMate main screen once the app is running.
+- The application will be installed and launched on your connected device. You will see the NewsNest applications main screen once the app is running.
 
 ## 3 Features provided by our application:
 
