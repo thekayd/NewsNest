@@ -72,6 +72,10 @@ NewsNest features a real-time chat messaging system that enables logged-in users
 - Share insights and opinions with the community.
 - Messages are securely stored in the Firebase database, ensuring safe and reliable communication.
 
+
+
+
+
 # OPSC7312-Backend API Documentation
 
 ## Version: 1.0.0  
@@ -137,6 +141,93 @@ The API is hosted on **Vercel** for its edge network and seamless integration, e
 - **NewsSuccessRes**
 - **NewsErrorRes**
 
+
+
+
+## Unit Testing and GitHub Actions
+
+### Overview
+This project uses **JUnit** for unit testing and **GitHub Actions** for continuous integration (CI). The CI pipeline builds the project, runs tests, and generates APK/AAB files for both debug and release versions. The project requires **JDK 17**.
+
+### How to Run Tests Locally
+1. Ensure you have JDK 17 installed.
+2. Open a terminal in the project root.
+3. Run the following command to execute unit tests:
+   ```bash
+   ./gradlew test
+## Unit Testing and GitHub Actions
+
+### Running Tests
+4. The tests will run, and results will be displayed in the terminal.
+
+### GitHub Actions Workflow
+The GitHub Actions workflow is set up to trigger on pushes to the `release` branch or manually from the Actions tab. Here's what the workflow does:
+
+#### Set up Java Environment:
+- Uses **JDK 17**.
+- Caches **Gradle** for faster builds.
+
+#### Build and Test:
+- Runs unit tests with `./gradlew test`.
+- Builds the project using `./gradlew build`.
+
+#### APK and AAB Build:
+- Generates debug APK with `./gradlew assembleDebug`.
+- Generates release APK and AAB with `./gradlew assemble` and `./gradlew bundleRelease`.
+
+#### Upload Artifacts:
+- Uploads the generated APK and AAB files as build artifacts for further use.
+
+### Unit Testing
+- Unit tests are located in the test directory.
+- The testing framework used is **JUnit**.
+- Example test classes include:
+  - **MainActivityTest**: Tests preference management (e.g., dark mode settings).
+  - **MainActivityUITest**: Verifies that MainActivity launches correctly.
+
+### Example Unit Test
+
+#### MainActivityTest
+This test validates that the dark mode preference is correctly saved and retrieved:
+```kotlin
+@Test
+fun testDarkModePreference() {
+    preferenceManager.putBoolean(Constants.KEY_IS_DARK_MODE, true)
+    val isDarkMode = preferenceManager.getBoolean(Constants.KEY_IS_DARK_MODE, false)
+    assertEquals(true, isDarkMode)
+}
+```
+
+#### MainActivityUITest
+This test ensures that the MainActivity is launched successfully:
+
+```kotlin
+@Test
+fun testActivityLaunch() {
+    ActivityScenario.launch(MainActivity::class.java).use { scenario ->
+        scenario.onActivity { activity ->
+            assert(activity != null)
+        }
+    }
+}
+```
+
+
+The workflow automatically runs the following steps:
+
+1. **Checkout code**.
+2. **Set up JDK 17**.
+3. **Run tests** using `./gradlew test`.
+4. **Build APK/AAB files** for both debug and release configurations.
+5. **Upload APK/AAB artifacts** for download.
+
+### Requirements for CI Pipeline
+
+- **JDK 17** for compilation and testing.
+- **Gradle** for project build and dependency management.
+- **GitHub Actions** for running the CI pipeline.
+
+  
   
 ## Conclusion
 We hope you enjoy your experience with NewsNest! For any issues or questions, please refer to the documentation or video provided with our submission.
