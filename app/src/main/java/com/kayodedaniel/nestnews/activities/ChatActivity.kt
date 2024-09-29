@@ -24,13 +24,13 @@ import java.util.*
 
 class ChatActivity : BaseActivity() {
 
-    private lateinit var binding: ActivityChatBinding
-    private lateinit var receiverUser: User
-    private lateinit var chatMessages: MutableList<ChatMessage>
-    private lateinit var chatAdapter: ChatAdapter
-    private lateinit var preferenceManager: PreferenceManager
-    private lateinit var database: FirebaseFirestore
-
+    private lateinit var binding: ActivityChatBinding//binding for layout views
+    private lateinit var receiverUser: User//user recieving messages
+    private lateinit var chatMessages: MutableList<ChatMessage>//list to hold chat messages
+    private lateinit var chatAdapter: ChatAdapter//adapter for displaying chat messages
+    private lateinit var preferenceManager: PreferenceManager//preference manager for user settings
+    private lateinit var database: FirebaseFirestore//database instance
+    //variables for managing conversation state
     private var conversionId: String? = null
     private var isReceiverAvailable: Boolean = false
 
@@ -38,12 +38,13 @@ class ChatActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityChatBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        //calling functions
         setListeners()
         loadReceiverDetails()
         init()
         listenMessages()
     }
-
+    // for the avaibility of the recieving user and show or hide the availibility of the user shown by "Active" label
     private fun listenAvailabilityOfReceiver() {
         receiverUser.id?.let {
             database.collection(Constants.KEY_COLLECTION_USERS)
@@ -66,11 +67,11 @@ class ChatActivity : BaseActivity() {
                 }
         }
     }
-
+    //initilize chat components and adpater
     private fun init() {
         preferenceManager = PreferenceManager(applicationContext)
         chatMessages = ArrayList()
-
+        //set up the chat adapter with the recievers image and current user id
         receiverUser.image?.let {
             chatAdapter = ChatAdapter(
                 chatMessages,
@@ -80,18 +81,18 @@ class ChatActivity : BaseActivity() {
             binding.chatRecyclerView.adapter = chatAdapter
         }
 
-        database = FirebaseFirestore.getInstance()
+        database = FirebaseFirestore.getInstance()//initiliaze the firestore database
     }
-
+    //function for sending a chat message
     private fun sendMessage() {
         val message = HashMap<String, Any?>()
         message[Constants.KEY_SENDER_ID] = preferenceManager.getString(Constants.KEY_USER_ID)
         message[Constants.KEY_RECEIVER_ID] = receiverUser.id
         message[Constants.KEY_MESSAGE] = binding.inputMessage.text.toString()
         message[Constants.KEY_TIMESTAMP] = Date()
-
+        //adding the message to the chat collection
         database.collection(Constants.KEY_COLLECTION_CHAT).add(message)
-
+        //check if the conversion exists or create a new one
         if (conversionId != null) {
             updateConversion(binding.inputMessage.text.toString())
         } else {
@@ -110,7 +111,7 @@ class ChatActivity : BaseActivity() {
     }
 
 
-
+    //listen for incoming messages from both users
     private fun listenMessages() {
         database.collection(Constants.KEY_COLLECTION_CHAT)
             .whereEqualTo(Constants.KEY_SENDER_ID, preferenceManager.getString(Constants.KEY_USER_ID))
@@ -122,7 +123,7 @@ class ChatActivity : BaseActivity() {
             .whereEqualTo(Constants.KEY_RECEIVER_ID, preferenceManager.getString(Constants.KEY_USER_ID))
             .addSnapshotListener(eventListener)
     }
-
+    //event listener for message changes
     private val eventListener = EventListener<QuerySnapshot> { value, error ->
         if (error != null) return@EventListener
 
@@ -137,47 +138,47 @@ class ChatActivity : BaseActivity() {
                         dateTime = getReadableDateTime(documentChange.document.getDate(Constants.KEY_TIMESTAMP) ?: Date())
                         dateObject = documentChange.document.getDate(Constants.KEY_TIMESTAMP) ?: Date()
                     }
-                    chatMessages.add(chatMessage)
+                    chatMessages.add(chatMessage)//add the new message to the list
                 }
             }
-            chatMessages.sortWith { obj1, obj2 -> obj1.dateObject?.compareTo(obj2.dateObject) ?: 0 }
+            chatMessages.sortWith { obj1, obj2 -> obj1.dateObject?.compareTo(obj2.dateObject) ?: 0 }//sort messages by date and notify adapter of changes
             if (count == 0) {
                 chatAdapter.notifyDataSetChanged()
             } else {
                 chatAdapter.notifyItemRangeChanged(chatMessages.size, chatMessages.size)
                 binding.chatRecyclerView.smoothScrollToPosition(chatMessages.size - 1)
             }
-            binding.chatRecyclerView.visibility = View.VISIBLE
+            binding.chatRecyclerView.visibility = View.VISIBLE //show chat view
         }
         binding.progressBar.visibility = View.GONE
-        if (conversionId == null) checkForConversion()
+        if (conversionId == null) checkForConversion() //check for exsiting conversation
     }
-
+    //decode base64 encoded image string into bitmpa for display purpose
     private fun getBitmapFromEncodedString(encodedImage: String): Bitmap {
         val bytes = Base64.decode(encodedImage, Base64.DEFAULT)
         return BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
     }
-
+    //function to load the reciever user from the intent
     private fun loadReceiverDetails() {
         receiverUser = intent.getSerializableExtra(Constants.KEY_USER) as User
         binding.textName.text = receiverUser.name
     }
-
+    //setting the click listeners for all UI elements
     private fun setListeners() {
         binding.imageBack.setOnClickListener { onBackPressed() }
         binding.layoutSend.setOnClickListener { sendMessage() }
     }
-
+    // Format date to readable string
     private fun getReadableDateTime(date: Date): String {
         return SimpleDateFormat("MMMM dd, yyyy - hh:mm a", Locale.getDefault()).format(date)
     }
-
+    // Add a new conversion entry in Firestore
     private fun addConversion(conversion: HashMap<String, Any?>) {
         database.collection(Constants.KEY_COLLECTION_CONVERSATIONS)
             .add(conversion)
             .addOnSuccessListener { documentReference -> conversionId = documentReference.id }
     }
-
+    // Update an existing conversion in Firestore
     private fun updateConversion(message: String) {
         val documentReference: DocumentReference = database.collection(Constants.KEY_COLLECTION_CONVERSATIONS).document(conversionId!!)
         documentReference.update(
@@ -185,7 +186,7 @@ class ChatActivity : BaseActivity() {
             Constants.KEY_TIMESTAMP, Date()
         )
     }
-
+    // Check for existing conversion based on chat messages
     private fun checkForConversion() {
         if (chatMessages.isNotEmpty()) {
             receiverUser.id?.let {
@@ -202,7 +203,7 @@ class ChatActivity : BaseActivity() {
             }
         }
     }
-
+    // Check for existing conversation in Firestore
     private fun checkForConversionRemotely(senderId: String, receiverId: String) {
         database.collection(Constants.KEY_COLLECTION_CONVERSATIONS)
             .whereEqualTo(Constants.KEY_SENDER_ID, senderId)
@@ -210,14 +211,14 @@ class ChatActivity : BaseActivity() {
             .get()
             .addOnCompleteListener(conversionOnCompleteListener)
     }
-
+    // Handle the completion of conversation checks
     private val conversionOnCompleteListener = OnCompleteListener<QuerySnapshot> { task ->
         if (task.isSuccessful && task.result != null && task.result!!.documents.isNotEmpty()) {
             val documentSnapshot = task.result!!.documents[0]
             conversionId = documentSnapshot.id
         }
     }
-
+    // When the activity is paused, save the availability status
     override fun onResume() {
         super.onResume()
         listenAvailabilityOfReceiver()
