@@ -71,6 +71,72 @@ NewsNest features a real-time chat messaging system that enables logged-in users
 - Exchange updates about specific categories of news.
 - Share insights and opinions with the community.
 - Messages are securely stored in the Firebase database, ensuring safe and reliable communication.
+
+# OPSC7312-Backend API Documentation
+
+## Version: 1.0.0  
+OAS 3.0  
+API Documentation: `/api/doc`
+
+## Introduction
+This API supports a simple Android application that enables users to view, search, and save news articles to favorites, and access account information. It uses **Hono.js**, a lightweight, high-performance framework hosted on Vercel, ensuring ultra-low latency by serving requests close to users.
+
+## News Source
+The API retrieves news from public RSS feeds, with a focus on South African news (currently sourced from News24). The RSS feeds are parsed using **Cheerio** and returned in structured JSON format.
+
+## Pros and Cons
+### Pros:
+- Efficiency: Uses RSS feeds with minimal setup.
+- Flexibility: Cheerio adapts to various feed structures.
+- Scalability: Easy to add more sources.
+- Focused: South African news enhances user engagement.
+
+### Cons:
+- Data Quality: Inconsistent formats.
+- Dependency: Relies on third-party feeds.
+- Control: Limited over content updates.
+- Complexity: Managing multiple feeds can be tricky.
+
+## Tech Stack
+- **Hono.js**: Web framework
+- **Node.js**: Runtime environment
+- **Vercel**: Hosting platform
+- **Zod**: Schema validation
+- **Cheerio**: RSS feed parsing
+- **Jest**: Testing
+- **Firebase Auth**: Authentication
+- **Firestore**: NoSQL database
+
+## Data Flow
+The API communicates via HTTP, receiving and sending JSON. It uses **Zod** for schema validation, ensuring strict type safety and error reduction.
+
+- **Requests**: Handled through URL parameters and request bodies (e.g., user actions like adding to favorites).
+- **Responses**: Structured JSON (e.g., articles, confirmation messages).
+
+## Architecture and Design
+- **CRUD Operations**: For fetching articles, managing favorites, and accessing user info.
+- **Authentication**: Backend authentication ensures secure data access.
+- **Business Service Layer**: Manages core business logic and interactions with Firebase.
+- **TDD**: Test-driven development ensures stable features.
+- **Rate Limiting**: Prevents abuse and ensures API security.
+
+## Hosting
+The API is hosted on **Vercel** for its edge network and seamless integration, ensuring fast response times. Firebase services are used for authentication and database management.
+
+- **Simplicity**: Streamlined deployment via Vercel.
+- **Efficiency**: Fast and secure data management with Firebase and Vercel’s edge network.
+- **Cost-Effective**: Low operational costs through Vercel and Firebase.
+
+## Endpoints
+- `GET /api/hello`
+- `GET /api/news`
+- `GET /api/news/:title`
+
+## Schemas
+- **HomeRes**
+- **NewsSuccessRes**
+- **NewsErrorRes**
+
   
 ## Conclusion
 We hope you enjoy your experience with NewsNest! For any issues or questions, please refer to the documentation or video provided with our submission.
