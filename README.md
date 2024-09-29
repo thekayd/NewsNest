@@ -2,6 +2,13 @@
 
 ## Introduction
 Welcome to the NewsNest Application! NewsNest is a dynamic news aggregation platform designed to keep users up-to-date with the latest headlines, categorized topics, and personalized news feeds. This README file will guide you through the steps for installing, running, and navigating the application.
+
+## Youtube Link:
+https://youtu.be/-z-qD_MgUbE
+
+## API Documentation Link:
+https://opsc7312.nerfdesigns.com/
+
 ## Getting Started
 
 ### What's Required
