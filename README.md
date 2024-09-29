@@ -49,38 +49,30 @@ Run Application:
 Launch Application:
 - The application will be installed and launched on your connected device. You will see the ShiftMate main screen once the app is running.
 
-## 2 Features provided by our application:
+## 3 Features provided by our application:
 
-### 1. Latest News Feed
-The Latest News Feed ensures users always have access to breaking news and top stories. This feature includes:
+### 1. News Feed with Categories
+The News Feed provides users with the latest news, tailored to their interests:
 
-- Real-time Updates: News articles are refreshed frequently from reliable sources such as News24.
-- User-Friendly Display: Articles are shown with headlines, images, and brief descriptions.
-- Full Article View: Tapping on an article directs users to the full news content.
+- Real-time Updates: Users receive frequent updates from reliable sources such as News24.
+- Customizable Categories: Users can explore news from categories like Technology, Sports, Politics, and Entertainment.
+- User-Friendly Display: Articles are presented with headlines, images, and brief descriptions.
+- Full Article View: Tapping on an article takes users to the full content for more details.
 
-### 2. News Categories
-Users can explore different topics based on their interests using the News Categories feature:
+### 2. User Profile Preferences
+NewsNest allows users to personalize their experience:
 
-- Customizable Categories: Users can choose from categories such as Technology, Sports, Politics, Entertainment, and more.
-- Filtered News: Each category displays news relevant to that topic.
-
-### 3. User Profile and Settings
-Personalize your experience with the Profile and Settings features:
-
-- User Profile: Displays user information like name, email, and profile image.
+- User Profile: Displays information such as name, email, and profile image which can easily be changed or updated to users wants.
 - Dark Mode: Users can switch between Light Mode and Dark Mode based on their preference.
 - Terms and Conditions: Easily accessible in the settings for user reference.
 
-### 4. Chat Messaging
+### 3. Chat Messaging
 NewsNest features a real-time chat messaging system that enables logged-in users to communicate with others. The chat feature is designed to allow users to:
 
 - Discuss news in their local area.
 - Exchange updates about specific categories of news.
 - Share insights and opinions with the community.
 - Messages are securely stored in the Firebase database, ensuring safe and reliable communication.
-
-
-
 
 
 # OPSC7312-Backend API Documentation
