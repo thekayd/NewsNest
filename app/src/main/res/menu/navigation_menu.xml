@@ -21,4 +21,9 @@
         android:icon="@drawable/ic_settings"
         android:visible="true"
         android:title="Settings" />
+    <item
+        android:id="@+id/nav_chat_bot"
+        android:icon="@drawable/ic_chat"
+        android:title="Chatbot" />
+
 </menu>

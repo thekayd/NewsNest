@@ -12,6 +12,7 @@ import com.kayodedaniel.nestnews.R
 import com.kayodedaniel.nestnews.Utilities.Constants
 import com.kayodedaniel.nestnews.Utilities.PreferenceManager
 import com.kayodedaniel.nestnews.api.NewsService
+import com.kayodedaniel.nestnews.chatbotactivity.ChatBotActivity
 import com.kayodedaniel.nestnews.model.NewsResponse
 import com.kayodedaniel.nestnews.ui.ArticleAdapter
 import retrofit2.*
@@ -76,6 +77,12 @@ class MainActivity : AppCompatActivity() {
                     // Navigate to Settings
                     val intent = Intent(this, SettingsActivity::class.java) // Create intent for SettingsActivity
                     startActivity(intent) // Start SettingsActivity
+                    true
+                }
+                R.id.nav_chat_bot -> {
+                    // Navigate to ViewAppointmentActivity
+                    startActivity(Intent(this, ChatBotActivity::class.java))
+                    overridePendingTransition(0, 0)
                     true
                 }
                 else -> false // No action for other items
