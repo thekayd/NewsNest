@@ -114,7 +114,17 @@ class SettingsActivity : AppCompatActivity() {
         val updates = HashMap<String, Any>()
         updates[Constants.KEY_FCM_TOKEN] = FieldValue.delete()
         documentReference.update(updates).addOnSuccessListener {
+            // Save the email before clearing preferences
+            val email = preferenceManager.getString(Constants.KEY_EMAIL)
+
+            // Clear all preferences
             preferenceManager.clear()
+
+            // Restore the email
+            if (!email.isNullOrEmpty()) {
+                preferenceManager.putString(Constants.KEY_EMAIL, email)
+            }
+
             startActivity(Intent(applicationContext, SignInActivity::class.java))
             finish()
         }.addOnFailureListener {

@@ -72,6 +72,16 @@
             android:textColor="@color/black"
             android:textSize="@dimen/_13ssp"/>
 
+        <Button
+            android:id="@+id/buttonUseFingerprint"
+            android:layout_width="238dp"
+            android:layout_height="@dimen/_50ssp"
+            android:backgroundTint="@color/blue"
+            android:fontFamily="@font/nunito"
+            android:text="Use Fingerprint to Sign In"
+            android:textColor="@color/white"
+            android:visibility="visible" />
+
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
