@@ -102,6 +102,16 @@ dependencies {
     implementation("io.coil-kt:coil-compose:2.4.0")
     implementation("androidx.compose.material:material-icons-extended:1.7.4")
 
+    // Room components
+    implementation("androidx.room:room-runtime:2.5.0")
+    kapt("androidx.room:room-compiler:2.5.0")
+
+    // Optional - RxJava support for Room
+    implementation("androidx.room:room-rxjava3:2.5.0")
+
+    // Optional - Kotlin Extensions and Coroutines support for Room
+    implementation("androidx.room:room-ktx:2.5.0")
+
 
     // Firebase dependencies
     implementation(platform(libs.firebase.bom))
