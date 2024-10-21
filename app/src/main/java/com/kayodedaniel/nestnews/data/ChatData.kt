@@ -12,7 +12,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.io.ByteArrayOutputStream
 
 object ChatData {
-    private const val API_KEY = "AIzaSyDaUc6hT2k8pyFuTDAwiF2T4CQDPhoBXtc"
+    private const val API_KEY = ""
     private const val BASE_URL = "https://generativelanguage.googleapis.com/v1beta/"
 
     private val retrofit = Retrofit.Builder()
