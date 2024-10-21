@@ -22,7 +22,7 @@ class SignInActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        preferenceManager = PreferenceManager(applicationContext) // Initialize preference manager
+        preferenceManager = PreferenceManager(applicationContext)
 
         // Check if the user is already signed in
         if (preferenceManager.getBoolean(Constants.KEY_IS_SIGNED_IN)) {
@@ -43,12 +43,13 @@ class SignInActivity : AppCompatActivity() {
             binding.buttonUseFingerprint.isEnabled = false
             binding.buttonUseFingerprint.visibility = View.GONE
         }
+
+        // Remove the automatic biometric prompt display from here
         // Initialize BiometricManager to check if biometrics are available
         val biometricManager = BiometricManager.from(this)
         when (biometricManager.canAuthenticate(BiometricManager.Authenticators.BIOMETRIC_STRONG)) {
             BiometricManager.BIOMETRIC_SUCCESS -> {
-                // Biometric is available, show the biometric prompt
-                showBiometricPrompt()
+                // Biometric is available, but don't show the prompt automatically
             }
             BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE -> {
                 showToast("No biometric hardware available on this device.")
@@ -61,6 +62,7 @@ class SignInActivity : AppCompatActivity() {
             }
         }
     }
+
 
     private fun showBiometricPrompt() {
         // Create a BiometricPrompt instance
