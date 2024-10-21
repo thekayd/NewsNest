@@ -72,6 +72,7 @@ dependencies {
     implementation(libs.multidex)
     implementation(libs.retrofit)
     implementation(libs.converterscalars)
+    implementation("androidx.biometric:biometric:1.2.0-alpha04")
     testImplementation ("junit:junit:4.13.2")
 
 

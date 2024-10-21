@@ -99,18 +99,26 @@
 
         </FrameLayout>
 
-
-
         <TextView
             android:id="@+id/textCreateNewAccount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_30ssp"
+            android:layout_marginTop="@dimen/_15ssp"
             android:text="@string/create_new_account"
             android:textColor="@color/blue"
             android:fontFamily="@font/nunito"
             android:textSize="@dimen/_13ssp"
             android:textStyle="bold"/>
+
+        <ImageView
+            android:id="@+id/buttonUseFingerprint"
+            android:layout_width="69dp"
+            android:layout_height="59dp"
+            android:layout_marginTop="@dimen/_100ssp"
+            android:clickable="true"
+            android:contentDescription="Finger Print"
+            android:focusable="true"
+            android:src="@drawable/baseline_fingerprint_24" />
 
 
 
