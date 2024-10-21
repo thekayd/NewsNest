@@ -123,15 +123,21 @@
         <Button
             android:id="@+id/buttonFingerprintAuth"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Use Fingerprint"
-            android:layout_marginTop="16dp"
+            android:layout_height="@dimen/_50ssp"
+            android:layout_marginTop="@dimen/_10ssp"
+            android:text="Add Fingerprint"
             android:layout_gravity="center"
+            android:backgroundTint="@color/blue"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_13ssp"
+            android:fontFamily="@font/nunito"
+            android:textStyle="bold"
+            app:cornerRadius="@dimen/_8ssp"
             />
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_16ssp"
+            android:layout_marginTop="@dimen/_10ssp"
             android:animateLayoutChanges="true">
 
             <com.google.android.material.button.MaterialButton
