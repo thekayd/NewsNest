@@ -3,6 +3,7 @@ package com.kayodedaniel.nestnews.api
 import com.kayodedaniel.nestnews.model.NewsResponse
 import retrofit2.Call
 import retrofit2.http.GET
+import retrofit2.http.Query
 
 // Defines an interface for the Retrofit service to make network requests for fetching news articles.
 interface NewsService {
