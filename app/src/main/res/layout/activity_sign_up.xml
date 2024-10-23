@@ -85,7 +85,7 @@
             android:paddingEnd="@dimen/_16ssp"
             android:textColor="@color/black"
             android:textColorHint="@color/black"
-            android:textSize="@dimen/_13ssp"/>
+            android:textSize="@dimen/_13ssp" />
 
         <EditText
             android:id="@+id/InputPassword"
@@ -125,7 +125,7 @@
             android:layout_width="wrap_content"
             android:layout_height="@dimen/_50ssp"
             android:layout_marginTop="@dimen/_10ssp"
-            android:text="Add Fingerprint"
+            android:text="@string/add_fingerprint"
             android:layout_gravity="center"
             android:backgroundTint="@color/blue"
             android:textColor="@color/white"

@@ -29,7 +29,7 @@
             android:layout_gravity="center"
             android:backgroundTint="@color/blueish"
             android:textColor="@color/white"
-            android:text="Read More"
+            android:text="@string/read_more"
             android:layout_marginTop="16dp" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

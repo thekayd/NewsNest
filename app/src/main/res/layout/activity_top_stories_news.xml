@@ -20,7 +20,7 @@
         android:id="@+id/TopStoriesTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Top Stories"
+        android:text="@string/top_stories"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@color/blue"

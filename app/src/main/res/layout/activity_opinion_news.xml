@@ -20,7 +20,7 @@
         android:id="@+id/OpinionTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Opinion News"
+        android:text="@string/opinion_news"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@color/blue"

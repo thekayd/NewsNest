@@ -4,26 +4,27 @@
         android:id="@+id/navigation_home"
         android:icon="@drawable/ic_home"
         android:visible="true"
-        android:title="Home" />
+        android:title="@string/home" />
     <item
         android:id="@+id/navigation_categories"
         android:icon="@drawable/ic_categories"
         android:visible="true"
-        android:title="Categories" />
+        android:title="@string/categoriesnav" />
     <item
         android:id="@+id/navigation_message"
         android:icon="@drawable/ic_message"
         android:iconTint="@color/white"
         android:visible="true"
-        android:title="Messages" />
+        android:title="@string/messages" />
+    <item
+        android:id="@+id/nav_chat_bot"
+        android:icon="@drawable/ic_chat"
+        android:title="@string/chatbot" />
     <item
         android:id="@+id/navigation_settings"
         android:icon="@drawable/ic_settings"
         android:visible="true"
-        android:title="Settings" />
-    <item
-        android:id="@+id/nav_chat_bot"
-        android:icon="@drawable/ic_chat"
-        android:title="Chatbot" />
+        android:title="@string/settings" />
+
 
 </menu>
