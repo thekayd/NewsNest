@@ -104,14 +104,19 @@ dependencies {
     implementation("androidx.compose.material:material-icons-extended:1.7.4")
 
     // Room components
-    implementation("androidx.room:room-runtime:2.5.0")
-    kapt("androidx.room:room-compiler:2.5.0")
+    implementation("androidx.room:room-runtime:2.6.1")
+    kapt("androidx.room:room-compiler:2.6.1")
 
     // Optional - RxJava support for Room
-    implementation("androidx.room:room-rxjava3:2.5.0")
+    implementation("androidx.room:room-rxjava3:2.6.1")
+    implementation("androidx.room:room-ktx:2.6.1")
 
     // Optional - Kotlin Extensions and Coroutines support for Room
-    implementation("androidx.room:room-ktx:2.5.0")
+    implementation("androidx.room:room-ktx:2.6.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1")
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
+
+
 
 
     // Firebase dependencies

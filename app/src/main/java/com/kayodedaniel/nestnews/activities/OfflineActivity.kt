@@ -5,115 +5,72 @@ import android.os.Bundle
 import android.view.View
 import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.kayodedaniel.nestnews.ArticleDetailActivity
 import com.kayodedaniel.nestnews.R
-import com.kayodedaniel.nestnews.Utilities.Constants
-import com.kayodedaniel.nestnews.Utilities.PreferenceManager
-import com.kayodedaniel.nestnews.api.NewsService
-import com.kayodedaniel.nestnews.chatbotactivity.ChatBotActivity
-import com.kayodedaniel.nestnews.data.NewsRepository
 import com.kayodedaniel.nestnews.data.local.NewsDatabase
 import com.kayodedaniel.nestnews.model.Article
 import com.kayodedaniel.nestnews.ui.ArticleAdapter
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 import com.google.android.material.snackbar.Snackbar
+import com.kayodedaniel.nestnews.data.toArticle
 
-class MainActivity : AppCompatActivity() {
-
+class OfflineActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var articleAdapter: ArticleAdapter
-    private lateinit var preferenceManager: PreferenceManager
     private lateinit var searchView: SearchView
     private lateinit var noResultsTextView: androidx.appcompat.widget.AppCompatTextView
-    private lateinit var swipeRefreshLayout: SwipeRefreshLayout
     private var allArticles: List<Article> = listOf()
-    private lateinit var newsRepository: NewsRepository
+    private lateinit var newsDatabase: NewsDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_offline)
 
         initializeViews()
-        setupDarkMode()
-        setupRepository()
         setupAdapter()
-        setupSwipeToRefresh()
-        fetchArticles()
+        loadOfflineArticles()
         setupSearchView()
         setupBottomNavigation()
     }
 
-
     private fun initializeViews() {
-        preferenceManager = PreferenceManager(applicationContext)
         recyclerView = findViewById(R.id.recyclerView)
         searchView = findViewById(R.id.searchView)
         noResultsTextView = findViewById(R.id.noResultsTextView)
-        swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout)
         recyclerView.layoutManager = LinearLayoutManager(this)
-    }
-
-    private fun setupDarkMode() {
-        val isDarkMode = preferenceManager.getBoolean(Constants.KEY_IS_DARK_MODE, false)
-        AppCompatDelegate.setDefaultNightMode(
-            if (isDarkMode) AppCompatDelegate.MODE_NIGHT_YES
-            else AppCompatDelegate.MODE_NIGHT_NO
-        )
-    }
-
-    private fun setupRepository() {
-        val retrofit = Retrofit.Builder()
-            .baseUrl("https://opsc7312.nerfdesigns.com/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-
-        val newsService = retrofit.create(NewsService::class.java)
-        val newsDatabase = NewsDatabase.getInstance(applicationContext)
-        newsRepository = NewsRepository(applicationContext, newsService, newsDatabase)
+        newsDatabase = NewsDatabase.getInstance(applicationContext)
     }
 
     private fun setupAdapter() {
         articleAdapter = ArticleAdapter { article ->
-            val intent = Intent(this, ArticleDetailActivity::class.java).apply {
-                putExtra("link", article.link)
+            // Check if the article link is valid before starting the activity
+            if (article.link.isNotEmpty()) {
+                val intent = Intent(this, ArticleDetailActivity::class.java).apply {
+                    putExtra("link", article.link)
+                    putExtra("isOffline", true)
+                }
+                startActivity(intent)
+            } else {
+                showError("Unable to load article content.")
             }
-            startActivity(intent)
         }
         recyclerView.adapter = articleAdapter
     }
 
-    private fun setupSwipeToRefresh() {
-        swipeRefreshLayout.setOnRefreshListener {
-            fetchArticles()
-        }
-    }
-
-    private fun fetchArticles() {
+    private fun loadOfflineArticles() {
         lifecycleScope.launch {
             try {
-                val result = newsRepository.getArticles()
-                result.onSuccess { articles ->
-                    allArticles = articles
-                    articleAdapter.submitList(articles)
-                    updateUIVisibility(articles.isNotEmpty())
-                }.onFailure { exception ->
-                    updateUIVisibility(false)
-                    showError("Unable to load articles. Please try again later.")
-                }
+                val articles = newsDatabase.articleDao().getAllArticles().map { it.toArticle() }
+                // Only keep articles with non-empty links
+                allArticles = articles.filter { it.link.isNotEmpty() }
+                articleAdapter.submitList(allArticles)
+                updateUIVisibility(allArticles.isNotEmpty())
             } catch (e: Exception) {
-                updateUIVisibility(false)
-                showError("An error occurred while loading articles.")
-            } finally {
-                swipeRefreshLayout.isRefreshing = false
+                showError("Error loading offline articles")
             }
         }
     }
@@ -163,9 +120,9 @@ class MainActivity : AppCompatActivity() {
         val bottomNavigation: BottomNavigationView = findViewById(R.id.bottom_navigation)
         bottomNavigation.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
-                R.id.navigation_home -> true
-                R.id.navigation_categories -> {
-                    startActivity(Intent(this, CategoryActivity::class.java))
+                R.id.navigation_home -> {
+                    startActivity(Intent(this, MainActivity::class.java))
+                    finish()
                     true
                 }
                 R.id.navigation_message -> {
@@ -174,11 +131,6 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.navigation_settings -> {
                     startActivity(Intent(this, SettingsActivity::class.java))
-                    true
-                }
-                R.id.nav_chat_bot -> {
-                    startActivity(Intent(this, ChatBotActivity::class.java))
-                    overridePendingTransition(0, 0)
                     true
                 }
                 else -> false
