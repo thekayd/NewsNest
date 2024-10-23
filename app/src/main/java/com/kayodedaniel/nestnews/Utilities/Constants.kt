@@ -1,6 +1,7 @@
 package com.kayodedaniel.nestnews.Utilities
 
 object Constants {
+    const val KEY_IS_AFRIKAANS = "key_is_afrikaans"
     const val KEY_FINGERPRINT_ID = "fingerprintId"
     const val KEY_IS_DARK_MODE = "is_dark_mode"
     const val KEY_COLLECTION_USERS = "users"

@@ -20,7 +20,7 @@
         android:id="@+id/SouthAfricaTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="South African News"
+        android:text="@string/south_african_news"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@color/blue"

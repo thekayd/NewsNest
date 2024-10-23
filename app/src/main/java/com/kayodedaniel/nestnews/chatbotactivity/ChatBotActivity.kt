@@ -69,7 +69,7 @@ class ChatBotActivity : ComponentActivity() {
                             Box(
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .background(MaterialTheme.colorScheme.primary)
+                                    .background(MaterialTheme.colorScheme.secondary)
                                     .height(55.dp)
                                     .padding(horizontal = 16.dp)
                             ) {
@@ -77,7 +77,7 @@ class ChatBotActivity : ComponentActivity() {
                                     modifier = Modifier.align(Alignment.CenterStart),
                                     text = stringResource(id = R.string.app_name),
                                     fontSize = 19.sp,
-                                    color = MaterialTheme.colorScheme.onPrimary
+                                    color = MaterialTheme.colorScheme.primary
                                 )
                             }
                         }

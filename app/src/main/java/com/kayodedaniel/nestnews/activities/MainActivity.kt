@@ -181,6 +181,10 @@ class MainActivity : AppCompatActivity() {
                     overridePendingTransition(0, 0)
                     true
                 }
+                R.id.nav_chat_bot -> {
+                    val intent = Intent(this, ChatBotActivity::class.java)
+                    true
+                }
                 else -> false
             }
         }

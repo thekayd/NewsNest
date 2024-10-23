@@ -20,7 +20,7 @@
         android:id="@+id/BusinessTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Business News"
+        android:text="@string/business_news"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@color/blue"

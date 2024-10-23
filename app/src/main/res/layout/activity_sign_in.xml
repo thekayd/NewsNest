@@ -116,7 +116,7 @@
             android:layout_height="59dp"
             android:layout_marginTop="@dimen/_100ssp"
             android:clickable="true"
-            android:contentDescription="Finger Print"
+            android:contentDescription="@string/finger_print"
             android:focusable="true"
             android:src="@drawable/baseline_fingerprint_24" />
 
