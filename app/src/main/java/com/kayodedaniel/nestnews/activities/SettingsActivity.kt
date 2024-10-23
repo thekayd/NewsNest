@@ -107,12 +107,23 @@ class SettingsActivity : AppCompatActivity() {
                 // Update the language preference
                 preferenceManager.putBoolean(Constants.KEY_IS_AFRIKAANS, isAfrikaans)
 
-                // Change app language
-                changeLanguage(isAfrikaans)
+                // Apply language change without recreating immediately
+                changeLanguageWithoutRecreate(isAfrikaans)
             } else {
                 showToast("Language is already ${if (isChecked) "Afrikaans" else "English"}")
             }
         }
+    }
+
+    private fun changeLanguageWithoutRecreate(isAfrikaans: Boolean) {
+        val locale = if (isAfrikaans) Locale("af") else Locale("en")
+        Locale.setDefault(locale)
+        val config = Configuration()
+        config.setLocale(locale)
+        resources.updateConfiguration(config, resources.displayMetrics)
+
+        // Instead of immediate recreation, allow user to see the changes after a smooth activity restart
+        recreateActivityForThemeChange()
     }
     private fun changeLanguage(isAfrikaans: Boolean) {
         val locale = if (isAfrikaans) Locale("af") else Locale("en")
@@ -120,9 +131,6 @@ class SettingsActivity : AppCompatActivity() {
         val config = Configuration()
         config.setLocale(locale)
         resources.updateConfiguration(config, resources.displayMetrics)
-
-        // Restart the activity to apply language changes
-        recreate()
     }
     private fun loadUserDetails() {
         // Display the user's name and email
@@ -201,7 +209,25 @@ class SettingsActivity : AppCompatActivity() {
     }
 
     private fun recreateActivityForThemeChange() {
-        // Restart the activity to apply the new theme smoothly
+        // Save the current language setting
+        val isAfrikaans = preferenceManager.getBoolean(Constants.KEY_IS_AFRIKAANS, false)
+
+        // Save the current dark mode setting
+        val isDarkMode = preferenceManager.getBoolean(Constants.KEY_IS_DARK_MODE, false)
+
+        // Set language based on saved preference
+        val locale = if (isAfrikaans) Locale("af") else Locale("en")
+        Locale.setDefault(locale)
+        val config = Configuration()
+        config.setLocale(locale)
+        resources.updateConfiguration(config, resources.displayMetrics)
+
+        // Set dark mode based on saved preference
+        AppCompatDelegate.setDefaultNightMode(
+            if (isDarkMode) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO
+        )
+
+        // Recreate the activity with a smooth transition
         finish()
         startActivity(Intent(this, SettingsActivity::class.java))
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
