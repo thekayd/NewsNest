@@ -1,3 +1,4 @@
+
 package com.kayodedaniel.nestnews.data
 
 import android.content.Context
@@ -54,7 +55,7 @@ class NewsRepository(
         }
     }
 
-    private suspend fun getCachedArticles(): List<Article> {
+    suspend fun getCachedArticles(): List<Article> {
         return newsDatabase.articleDao().getAllArticles().map { it.toArticle() }
     }
 }

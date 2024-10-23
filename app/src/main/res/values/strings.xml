@@ -50,5 +50,7 @@
     <string name="messages">Messages</string>
     <string name="chatbot">Chatbot</string>
     <string name="settings">Settings</string>
+    <string name="offline_articles">Offline Articles</string>
+    <string name="article_detail">Article Detail</string>
 
 </resources>
