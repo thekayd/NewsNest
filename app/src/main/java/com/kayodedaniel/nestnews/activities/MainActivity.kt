@@ -1,6 +1,8 @@
 package com.kayodedaniel.nestnews.activities
 
 import android.content.Intent
+import android.content.IntentFilter
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -16,6 +18,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
 import com.kayodedaniel.nestnews.ArticleDetailActivity
 import com.kayodedaniel.nestnews.R
+import com.kayodedaniel.nestnews.Utilities.ConnectivityReceiver
 import com.kayodedaniel.nestnews.Utilities.Constants
 import com.kayodedaniel.nestnews.Utilities.NetworkUtils
 import com.kayodedaniel.nestnews.Utilities.PreferenceManager
@@ -51,9 +54,16 @@ class MainActivity : AppCompatActivity() {
         setupOfflineMode()
         checkConnectivity()
         fetchArticles()
+        registerConnectivityReceiver()
         setupSearchView()
         setupBottomNavigation()
     }
+
+    private fun registerConnectivityReceiver() {
+        val intentFilter = IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
+        registerReceiver(ConnectivityReceiver(), intentFilter)
+    }
+
 
     private fun initializeViews() {
         preferenceManager = PreferenceManager(applicationContext)

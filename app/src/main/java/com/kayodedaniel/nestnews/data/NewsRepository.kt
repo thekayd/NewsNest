@@ -55,6 +55,17 @@ class NewsRepository(
         }
     }
 
+    suspend fun prefetchArticles() {
+        if (isNetworkAvailable()) {
+            val result = newsService.getArticles().execute()
+            if (result.isSuccessful && result.body() != null) {
+                val articles = result.body()!!.articles
+                newsDatabase.articleDao().insertArticles(articles.map { it.toEntity() })
+            }
+        }
+    }
+
+
     suspend fun getCachedArticles(): List<Article> {
         return newsDatabase.articleDao().getAllArticles().map { it.toArticle() }
     }

@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.kayodedaniel.nestnews.databinding.ItemArticleBinding
 import com.kayodedaniel.nestnews.model.Article
 import com.squareup.picasso.Picasso
+import com.kayodedaniel.nestnews.R
 
 // Adapter class for handling a list of articles in the RecyclerView
 class ArticleAdapter(private val onClick: (Article) -> Unit) :
@@ -42,8 +43,14 @@ class ArticleAdapter(private val onClick: (Article) -> Unit) :
         fun bind(article: Article) {
             binding.titleTextView.text = article.title // Sets the article title in the TextView
             binding.descriptionTextView.text = article.description // Sets the article description
-            // Loads the article's thumbnail image using Picasso and display it in the ImageView
-            Picasso.get().load(article.thumbnail).into(binding.imageView)
+
+            // Load the article's thumbnail image using Picasso, with error handling and caching
+            Picasso.get()
+                .load(article.thumbnail)
+                .placeholder(R.drawable.news_nest) // Placeholder image while loading
+                .error(R.drawable.news_nest) // Error image if load fails
+                .into(binding.imageView)
+
             // Sets an onClick listener on the root view to handle item clicks and pass the clicked article
             binding.root.setOnClickListener {
                 onClick(article)
