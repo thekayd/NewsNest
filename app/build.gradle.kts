@@ -116,7 +116,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1")
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
 
-
+    implementation("org.jsoup:jsoup:1.15.3")
 
 
     // Firebase dependencies

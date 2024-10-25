@@ -23,6 +23,7 @@
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
             </intent-filter>
         </receiver>
+        <service android:name=".service.ArticleCachingService" />
 
         <activity
             android:name=".activities.OfflineArticleDetailActivity"
