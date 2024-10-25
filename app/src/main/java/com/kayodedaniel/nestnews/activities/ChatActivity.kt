@@ -90,9 +90,34 @@ class ChatActivity : BaseActivity() {
         message[Constants.KEY_RECEIVER_ID] = receiverUser.id
         message[Constants.KEY_MESSAGE] = binding.inputMessage.text.toString()
         message[Constants.KEY_TIMESTAMP] = Date()
-        //adding the message to the chat collection
-        database.collection(Constants.KEY_COLLECTION_CHAT).add(message)
-        //check if the conversion exists or create a new one
+
+        // Add the message to the chat collection
+        database.collection(Constants.KEY_COLLECTION_CHAT)
+            .add(message)
+            .addOnSuccessListener {
+                // Create the notification after the message is successfully added
+                val notification = HashMap<String, Any?>()
+                notification["receiverId"] = receiverUser.id
+                notification["senderName"] = preferenceManager.getString(Constants.KEY_NAME)
+                notification["message"] = message[Constants.KEY_MESSAGE]
+                notification["timestamp"] = Date()
+
+                // Add the notification data to Firestore
+                database.collection("notifications")
+                    .add(notification)
+                    .addOnSuccessListener {
+                        // Optional: Log or show confirmation for notification creation
+                        //showToast("Notification sent!")
+                    }
+                    .addOnFailureListener { e ->
+                        //showToast("Failed to send notification: ${e.message}")
+                    }
+            }
+            .addOnFailureListener { e ->
+                //showToast("Failed to send message: ${e.message}")
+            }
+
+        // Check if the conversion exists or create a new one
         if (conversionId != null) {
             updateConversion(binding.inputMessage.text.toString())
         } else {
@@ -107,8 +132,11 @@ class ChatActivity : BaseActivity() {
             conversion[Constants.KEY_TIMESTAMP] = Date()
             addConversion(conversion)
         }
+
+        // Clear the input message
         binding.inputMessage.text = null
     }
+
 
 
     //listen for incoming messages from both users

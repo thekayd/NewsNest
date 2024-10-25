@@ -2,6 +2,7 @@ package com.kayodedaniel.nestnews.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.util.Patterns
 import android.view.View
 import android.widget.Toast
@@ -14,6 +15,8 @@ import com.kayodedaniel.nestnews.Utilities.PreferenceManager
 import androidx.biometric.BiometricManager
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
+import com.google.firebase.FirebaseApp
+import com.google.firebase.messaging.FirebaseMessaging
 
 class SignInActivity : AppCompatActivity() {
 
@@ -23,7 +26,7 @@ class SignInActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         preferenceManager = PreferenceManager(applicationContext)
-
+        FirebaseApp.initializeApp(this)
         // Check if the user is already signed in
         if (preferenceManager.getBoolean(Constants.KEY_IS_SIGNED_IN)) {
             // If signed in, go to MainActivity
@@ -167,32 +170,44 @@ class SignInActivity : AppCompatActivity() {
     }
 
     private fun signIn() {
-        loading(true) // Show loading progress
-        val database = FirebaseFirestore.getInstance() // Get Firestore instance
+        loading(true)
+        val database = FirebaseFirestore.getInstance()
 
-        // Query the database to find the user with the provided email and password
         database.collection(Constants.KEY_COLLECTION_USERS)
             .whereEqualTo(Constants.KEY_EMAIL, binding.inputEmail.text.toString())
             .whereEqualTo(Constants.KEY_PASSWORD, binding.InputPassword.text.toString())
             .get()
-            .addOnCompleteListener { task -> // Handle the result of the query
+            .addOnCompleteListener { task ->
                 if (task.isSuccessful && task.result != null && task.result.documents.isNotEmpty()) {
-                    // If the query is successful and a user is found
-                    val documentSnapshot: DocumentSnapshot = task.result.documents[0] // Get the user document
-                    // Save user data to preferences
+                    val documentSnapshot: DocumentSnapshot = task.result.documents[0]
                     saveUserData(documentSnapshot)
                     preferenceManager.putString(Constants.KEY_EMAIL, binding.inputEmail.text.toString())
 
-                    // Start MainActivity after successful sign-in
-                    val intent = Intent(applicationContext, MainActivity::class.java)
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK) // Clear activity stack
-                    startActivity(intent)
+                    // Generate FCM token
+                    // Get the FCM token
+                    FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
+                        if (!task.isSuccessful) {
+                            Log.w("FCM", "Fetching FCM token failed", task.exception)
+                            return@addOnCompleteListener
+                        }
+
+                        // Get new FCM registration token
+                        val token = task.result
+                        Log.d("FCM Token", token ?: "Token is null")
+
+                        // Start MainActivity after successful sign-in
+                        val intent = Intent(applicationContext, MainActivity::class.java)
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                        startActivity(intent)
+                    }
                 } else {
-                    loading(false) // Hide loading progress
-                    showToast("Unable To Sign In") // Show error message
+                    loading(false)
+                    showToast("Unable To Sign In")
                 }
             }
     }
+
+
 
     private fun saveUserData(documentSnapshot: DocumentSnapshot) {
         // Save user data to preferences
