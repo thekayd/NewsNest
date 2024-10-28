@@ -1,26 +1,33 @@
+
 package com.kayodedaniel.nestnews.activities
 
+import android.Manifest
 import android.content.Intent
-import android.graphics.Bitmap
+import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
+import android.os.Build
 import android.os.Bundle
 import android.util.Base64
 import android.view.View
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.firebase.firestore.*
+import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.EventListener
+import com.google.firebase.firestore.FieldValue
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.messaging.FirebaseMessaging
 import com.kayodedaniel.nestnews.R
+import com.kayodedaniel.nestnews.Utilities.Constants
+import com.kayodedaniel.nestnews.Utilities.PreferenceManager
 import com.kayodedaniel.nestnews.adapters.RecentConversationsAdapter
 import com.kayodedaniel.nestnews.databinding.ActivityMessageHomeBinding
 import com.kayodedaniel.nestnews.listeners.ConversionListener
 import com.kayodedaniel.nestnews.models.ChatMessage
 import com.kayodedaniel.nestnews.models.User
-import com.kayodedaniel.nestnews.Utilities.Constants
-import com.kayodedaniel.nestnews.Utilities.PreferenceManager
-import java.util.*
+import java.util.Date
 
 class MessageHomeActivity : BaseActivity(), ConversionListener {
 
@@ -29,6 +36,7 @@ class MessageHomeActivity : BaseActivity(), ConversionListener {
     private lateinit var conversations: MutableList<ChatMessage> // List to hold chat messages
     private lateinit var conversationsAdapter: RecentConversationsAdapter // Adapter for displaying conversations
     private lateinit var database: FirebaseFirestore // Firestore database instance
+    private val NOTIFICATION_PERMISSION_REQUEST_CODE = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,6 +53,9 @@ class MessageHomeActivity : BaseActivity(), ConversionListener {
         getToken() // Get the FCM token for messaging
         setListeners() // Set up click listeners
         listenConversations() // Start listening for chat conversations
+
+        // Check and request notification permission
+        checkNotificationPermission()
         val bottomNavigation: BottomNavigationView = findViewById(R.id.bottom_navigation) // Bottom navigation view
         bottomNavigation.setOnNavigationItemSelectedListener { item -> // Set navigation item selected listener
             when (item.itemId) {
@@ -69,6 +80,36 @@ class MessageHomeActivity : BaseActivity(), ConversionListener {
                 }
 
                 else -> false // Return false if no valid item selected
+            }
+        }
+    }
+    private fun checkNotificationPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) { // Android 13+
+            if (ContextCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.POST_NOTIFICATIONS
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                ActivityCompat.requestPermissions(
+                    this,
+                    arrayOf<String>(Manifest.permission.POST_NOTIFICATIONS),
+                   NOTIFICATION_PERMISSION_REQUEST_CODE
+                )
+            }
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String?>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == NOTIFICATION_PERMISSION_REQUEST_CODE) {
+            if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                showToast("Notifications enabled")
+            } else {
+                showToast("Notification permissions are required for app notifications")
             }
         }
     }
@@ -176,6 +217,7 @@ class MessageHomeActivity : BaseActivity(), ConversionListener {
     }
 
     private fun updateToken(token: String) {
+        preferenceManager.putString(Constants.KEY_FCM_TOKEN, token)
         val documentReference = preferenceManager.getString(Constants.KEY_USER_ID)?.let {
             database.collection(Constants.KEY_COLLECTION_USERS)
                 .document(it) // Get the document reference for the user
@@ -211,3 +253,4 @@ class MessageHomeActivity : BaseActivity(), ConversionListener {
         startActivity(intent) // Start ChatActivity
     }
 }
+

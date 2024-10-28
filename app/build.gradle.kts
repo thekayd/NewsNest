@@ -123,6 +123,9 @@ dependencies {
     implementation("org.jsoup:jsoup:1.15.3")
 
     implementation("com.google.auth:google-auth-library-oauth2-http:1.19.0")
+    implementation("com.google.firebase:firebase-messaging:23.0.0") // Use the latest version
+    implementation("com.google.android.gms:play-services-gcm:17.0.0") // Use the latest version
+
 
 
     // Firebase dependencies
