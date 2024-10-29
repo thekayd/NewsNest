@@ -87,7 +87,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
         recyclerView.adapter = articleAdapter
-
+        checkNotificationSettings()
         setupSwipeRefresh()
         fetchArticles()
         setupSearchView()
