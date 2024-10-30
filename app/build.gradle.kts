@@ -20,6 +20,10 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         multiDexEnabled = true
+
+        packagingOptions{
+            exclude("META-INF/DEPENDENCIES")
+        }
     }
 
     buildTypes {
@@ -116,6 +120,11 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1")
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
 
+    implementation("org.jsoup:jsoup:1.15.3")
+
+    implementation("com.google.auth:google-auth-library-oauth2-http:1.19.0")
+    implementation("com.google.firebase:firebase-messaging:23.0.0") // Use the latest version
+    implementation("com.google.android.gms:play-services-gcm:17.0.0") // Use the latest version
 
 
 

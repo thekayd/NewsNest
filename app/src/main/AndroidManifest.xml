@@ -8,6 +8,8 @@
     <uses-permission android:name="android.permission.USE_BIOMETRIC" />
     <uses-permission android:name="android.permission.USE_FINGERPRINT" />
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
 
     <application
         android:allowBackup="true"
@@ -26,15 +28,16 @@
             </intent-filter>
         </receiver>
 
+        <receiver android:name=".activities.NotificationReceiver" android:exported="false" />
         <activity
             android:name=".activities.OfflineArticleDetailActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.OfflineArticlesActivity"
-            android:exported="false" />
-        <activity
             android:name=".activities.OfflineActivity"
             android:exported="false" />
+
+
+
         <activity
             android:name=".chatbotactivity.ChatBotActivity"
             android:exported="false" />

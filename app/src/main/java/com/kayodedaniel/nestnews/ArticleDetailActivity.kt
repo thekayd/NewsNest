@@ -3,6 +3,7 @@ package com.kayodedaniel.nestnews
 import android.os.Build
 import android.os.Bundle
 import android.webkit.WebSettings
+import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
 import com.kayodedaniel.nestnews.databinding.ActivityArticleDetailBinding
@@ -25,14 +26,26 @@ class ArticleDetailActivity : AppCompatActivity() {
         val articleLink = intent.getStringExtra("link")
 
         // Configures and load the WebView to display the article
+        // Set up WebView
         binding.webView.apply {
-            webViewClient = WebViewClient() // Sets a WebViewClient to handle page navigation in the WebView
-            settings.javaScriptEnabled = true // Enables JavaScript for the WebView
-            // Allows mixed content (both HTTP and HTTPS) for devices running Android 5.0 (Lollipop) or higher
+            webViewClient = object : WebViewClient() {
+                // Show the ProgressBar when page loading starts
+                override fun onPageStarted(view: WebView, url: String, favicon: android.graphics.Bitmap?) {
+                    binding.progressBar.visibility = android.view.View.VISIBLE
+                }
+
+                // Hide the ProgressBar when page loading finishes
+                override fun onPageFinished(view: WebView, url: String) {
+                    binding.progressBar.visibility = android.view.View.GONE
+                }
+            }
+            settings.javaScriptEnabled = true
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 settings.mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
             }
-            loadUrl(articleLink ?: "") // Loads the article URL, or an empty string if the link is null
+            if (articleLink != null) {
+                loadUrl(articleLink)
+            }
         }
     }
 }
