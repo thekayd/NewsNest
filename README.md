@@ -3,6 +3,18 @@
 ## Introduction
 Welcome to the NewsNest Application! NewsNest is a dynamic news aggregation platform designed to keep users up-to-date with the latest headlines, categorized topics, and personalized news feeds. This README file will guide you through the steps for installing, running, and navigating the application.
 
+## Purpose of the Application
+NewsNest was developed to serve as a one-stop news aggregator for users seeking accessible, reliable, and categorized news tailored to their interests. In an increasingly fast-paced world, NewsNest helps users stay connected to relevant news updates by delivering curated information in real time. By incorporating user personalization options, NewsNest ensures a highly engaging and user-centered experience, with a range of features aimed at fostering a community of informed readers.
+
+## Design Considerations
+The design of NewsNest was centered on three key principles:
+
+1. User-Centric Experience: With an intuitive layout, customizable settings, and real-time news updates, the app is optimized for ease of use, ensuring a smooth and enjoyable user experience. User feedback was integral in developing features such as category filters, light/dark mode, and personalized feeds.
+
+2. Security and Accessibility: NewsNest features fingerprint verification for quick and secure logins. Additionally, multi-language support and offline viewing mode were designed to make the app accessible to a diverse audience, ensuring continuous access to news content even when internet connectivity is unavailable.
+
+3. Real-Time Interactivity: To promote engagement and community, NewsNest features real-time notifications and chat functionalities, allowing users to discuss news, share insights, and receive instant updates on topics of interest.
+
 ## Youtube Link:
 https://youtu.be/-z-qD_MgUbE
 
@@ -65,6 +77,7 @@ NewsNest allows users to personalize their experience:
 - User Profile: Displays information such as name, email, and profile image which can easily be changed or updated to users wants.
 - Dark Mode: Users can switch between Light Mode and Dark Mode based on their preference.
 - Terms and Conditions: Easily accessible in the settings for user reference.
+- Language Preference: Users can switch between their preferred language for better user engagement.
 
 ### 3. Chat Messaging Feature
 NewsNest features a real-time chat messaging system that enables logged-in users to communicate with others. The chat feature is designed to allow users to:
@@ -74,6 +87,29 @@ NewsNest features a real-time chat messaging system that enables logged-in users
 - Share insights and opinions with the community.
 - Messages are securely stored in the Firebase database, ensuring safe and reliable communication.
 
+### 4. Push Notifications
+Stay up-to-date with real-time push notifications:
+
+- Article Alerts: Users receive notifications about newly released articles in their selected categories.
+- Firebase Cloud Messaging (FCM): Notifications are pushed directly to the user's device, even when the app is closed.
+
+### 5. Offline Viewing Mode
+Users can now access articles offline:
+
+- Cached Articles: News articles are stored locally, allowing users to view content even without internet connectivity.
+- Automatic Syncing: Articles are synced and updated when the device reconnects to the internet, ensuring content is up-to-date.
+
+### 6. Fingerprint Verification for Added Security
+NewsNest enhances user security with fingerprint authentication:
+
+- Secure Access: Users can enable fingerprint verification to quickly and securely access the app.
+- Convenient Login: Once registered, users can log in with a single touch.
+
+### 7. Multi-language Support
+Catering to a diverse user base, NewsNest offers multi-language support:
+
+- Language Toggle: Users can switch between languages (currently supports English and Afrikaans) in the settings.
+- Localized Experience: The interface and content adapt instantly to the selected language.
 
 # OPSC7312-Backend API Documentation
 
