@@ -65,6 +65,7 @@ NewsNest allows users to personalize their experience:
 - User Profile: Displays information such as name, email, and profile image which can easily be changed or updated to users wants.
 - Dark Mode: Users can switch between Light Mode and Dark Mode based on their preference.
 - Terms and Conditions: Easily accessible in the settings for user reference.
+- Language Preference: Users can switch between their preferred language for better user engagement.
 
 ### 3. Chat Messaging Feature
 NewsNest features a real-time chat messaging system that enables logged-in users to communicate with others. The chat feature is designed to allow users to:
@@ -74,6 +75,29 @@ NewsNest features a real-time chat messaging system that enables logged-in users
 - Share insights and opinions with the community.
 - Messages are securely stored in the Firebase database, ensuring safe and reliable communication.
 
+### 4. Push Notifications
+Stay up-to-date with real-time push notifications:
+
+- Article Alerts: Users receive notifications about newly released articles in their selected categories.
+- Firebase Cloud Messaging (FCM): Notifications are pushed directly to the user's device, even when the app is closed.
+
+### 5. Offline Viewing Mode
+Users can now access articles offline:
+
+- Cached Articles: News articles are stored locally, allowing users to view content even without internet connectivity.
+- Automatic Syncing: Articles are synced and updated when the device reconnects to the internet, ensuring content is up-to-date.
+
+### 6. Fingerprint Verification for Added Security
+NewsNest enhances user security with fingerprint authentication:
+
+- Secure Access: Users can enable fingerprint verification to quickly and securely access the app.
+- Convenient Login: Once registered, users can log in with a single touch.
+
+### 7. Multi-language Support
+Catering to a diverse user base, NewsNest offers multi-language support:
+
+- Language Toggle: Users can switch between languages (currently supports English and Afrikaans) in the settings.
+- Localized Experience: The interface and content adapt instantly to the selected language.
 
 # OPSC7312-Backend API Documentation
 
