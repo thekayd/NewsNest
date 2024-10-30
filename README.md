@@ -3,6 +3,18 @@
 ## Introduction
 Welcome to the NewsNest Application! NewsNest is a dynamic news aggregation platform designed to keep users up-to-date with the latest headlines, categorized topics, and personalized news feeds. This README file will guide you through the steps for installing, running, and navigating the application.
 
+## Purpose of the Application
+NewsNest was developed to serve as a one-stop news aggregator for users seeking accessible, reliable, and categorized news tailored to their interests. In an increasingly fast-paced world, NewsNest helps users stay connected to relevant news updates by delivering curated information in real time. By incorporating user personalization options, NewsNest ensures a highly engaging and user-centered experience, with a range of features aimed at fostering a community of informed readers.
+
+## Design Considerations
+The design of NewsNest was centered on three key principles:
+
+1. User-Centric Experience: With an intuitive layout, customizable settings, and real-time news updates, the app is optimized for ease of use, ensuring a smooth and enjoyable user experience. User feedback was integral in developing features such as category filters, light/dark mode, and personalized feeds.
+
+2. Security and Accessibility: NewsNest features fingerprint verification for quick and secure logins. Additionally, multi-language support and offline viewing mode were designed to make the app accessible to a diverse audience, ensuring continuous access to news content even when internet connectivity is unavailable.
+
+3. Real-Time Interactivity: To promote engagement and community, NewsNest features real-time notifications and chat functionalities, allowing users to discuss news, share insights, and receive instant updates on topics of interest.
+
 ## Youtube Link:
 https://youtu.be/-z-qD_MgUbE
 
