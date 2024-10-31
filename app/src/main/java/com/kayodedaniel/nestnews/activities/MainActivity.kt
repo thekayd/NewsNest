@@ -300,7 +300,7 @@ class MainActivity : AppCompatActivity() {
             )
 
             val builder = NotificationCompat.Builder(this, channelId)
-                .setSmallIcon(R.drawable.ic_notification)
+                .setSmallIcon(R.drawable.news_nest)
                 .setContentTitle(title)
                 .setContentText(message)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)

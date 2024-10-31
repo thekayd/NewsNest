@@ -25,7 +25,7 @@ class NotificationService(private val context: Context) {
 
         // Build the notification
         val builder = NotificationCompat.Builder(context, "my_channel_id")
-            .setSmallIcon(R.drawable.ic_notification)
+            .setSmallIcon(R.drawable.news_nest)
             .setContentTitle(title)
             .setContentText(message)
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)

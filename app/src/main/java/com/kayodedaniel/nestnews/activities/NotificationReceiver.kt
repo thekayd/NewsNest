@@ -80,7 +80,7 @@ class NotificationReceiver : BroadcastReceiver() {
         )
 
         val builder = NotificationCompat.Builder(context, "article_notifications")
-            .setSmallIcon(R.drawable.ic_notification)
+            .setSmallIcon(R.drawable.news_nest)
             .setContentTitle("News Update")
             .setContentText("Check out the latest news articles!")
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
