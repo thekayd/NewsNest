@@ -51,4 +51,8 @@
     <string name="messages">Boodskappe</string>
     <string name="chatbot">Kletsbot</string>
     <string name="settings">Instellings</string>
+    <string name="offline_articles">Aflyn Artikels</string>
+    <string name="article_detail">Artikelbesonderhede</string>
+    <string name="fetching_article_content">Haal Artikel Inhoud</string>
+    <string name="no_cached_content">Geen Gekasde Artikel</string>
 </resources>
