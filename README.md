@@ -61,7 +61,7 @@ Run Application:
 Launch Application:
 - The application will be installed and launched on your connected device. You will see the NewsNest applications main screen once the app is running.
 
-## 3 Features provided by our application:
+## Features provided by our application:
 
 ### 1. News Feed with Categories Feature
 The News Feed provides users with the latest news, tailored to their interests:
@@ -110,6 +110,16 @@ Catering to a diverse user base, NewsNest offers multi-language support:
 
 - Language Toggle: Users can switch between languages (currently supports English and Afrikaans) in the settings.
 - Localized Experience: The interface and content adapt instantly to the selected language.
+
+### 8. Chatbot Feature
+
+- Interactive Assistance: A chatbot provides users with instant answers to common questions and assists in navigating the app.
+- 24/7 Availability: Users can engage with the chatbot any time for support.
+
+### 9. Search Feature
+
+- Article Search: Easily search for specific articles using keywords on the main page.
+- Filtered Results: Get relevant search results based on user queries for a more personalized experience.
 
 # OPSC7312-Backend API Documentation
 
