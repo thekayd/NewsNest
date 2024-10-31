@@ -162,7 +162,6 @@ class MainActivity : AppCompatActivity() {
     private fun checkExactAlarmPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             if (!canScheduleExactAlarms()) {
-                // Optionally inform the user to enable exact alarms in settings
                 val intent = Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM)
                 startActivity(intent)
             }
@@ -178,31 +177,32 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
+    // Function to check if notifications are enabled on the device
     private fun checkNotificationSettings() {
         val notificationManager = NotificationManagerCompat.from(this)
-
+        // If notifications are not enabled, prompt the user to enable them
         if (!notificationManager.areNotificationsEnabled()) {
             showNotificationPromptDialog()
         }
     }
-
+    // Function to show a dialog prompting the user to enable notifications
     private fun showNotificationPromptDialog() {
         androidx.appcompat.app.AlertDialog.Builder(this)
             .setTitle("Enable Notifications")
             .setMessage("Stay updated with the latest news! Please enable notifications for the best experience.")
             .setPositiveButton("Enable") { _, _ ->
-                openNotificationSettings()
+                openNotificationSettings()// Open notification settings when "Enable" is clicked
             }
             .setNegativeButton("Not Now") { dialog, _ ->
-                dialog.dismiss()
+                dialog.dismiss()// Dismiss the dialog if "Not Now" is clicked
             }
-            .setCancelable(false)
+            .setCancelable(false)// Prevent dialog from being canceled by tapping outside
             .show()
     }
-
+    // Function to open the app's notification settings
     private fun openNotificationSettings() {
         val intent = Intent().apply {
+            // For devices with Android Oreo or above, use the new settings action
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 action = Settings.ACTION_APP_NOTIFICATION_SETTINGS
                 putExtra(Settings.EXTRA_APP_PACKAGE, packageName)
@@ -212,11 +212,11 @@ class MainActivity : AppCompatActivity() {
                 putExtra("app_uid", applicationInfo.uid)
             }
         }
-        startActivity(intent)
+        startActivity(intent) // Launch the settings intent
     }
 
 
-
+    // Function to create a notification channel
     private fun createNotificationChannel() {
         // Check if the API version is at least Android 8.0 (Oreo) to create a notification channel
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -233,16 +233,17 @@ class MainActivity : AppCompatActivity() {
             notificationManager.createNotificationChannel(channel)
         }
     }
+    // Activity result launcher to request notification permission
     private val notificationPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { isGranted ->
         if (isGranted) {
             sendNotification("Your Title", "Your Message")
         } else {
-            // Handle the case when permission is not granted, e.g., show a message to the user.
+
         }
     }
-
+    // Function to check and request notification permission
     private fun checkAndRequestNotificationPermission() {
         if (ActivityCompat.checkSelfPermission(this, POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED) {
             sendNotification("Your Title", "Your Message")
@@ -251,10 +252,10 @@ class MainActivity : AppCompatActivity() {
             notificationPermissionLauncher.launch(POST_NOTIFICATIONS)
         }
     }
+
+    // Function to schedule a notification using AlarmManager
     private fun scheduleNotification() {
-        // Create intent with extra data if needed
         val intent = Intent(this, NotificationReceiver::class.java).apply {
-            // Add any extra data you want to pass to the receiver
             putExtra("notification_title", "News Update")
             putExtra("notification_message", "Check out the latest news articles!")
         }
@@ -282,7 +283,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
+    // Function to send a notification to the user
     private fun sendNotification(title: String, message: String) {
         // Check for notification permission
         if (ActivityCompat.checkSelfPermission(this, POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED) {
@@ -300,14 +301,14 @@ class MainActivity : AppCompatActivity() {
             )
 
             val builder = NotificationCompat.Builder(this, channelId)
-                .setSmallIcon(R.drawable.news_nest)
-                .setContentTitle(title)
-                .setContentText(message)
-                .setPriority(NotificationCompat.PRIORITY_HIGH)
-                .setAutoCancel(true)
-                // Set the pending intent that will fire when the notification is tapped
+                .setSmallIcon(R.drawable.ic_icon)// Notification icon
+                .setContentTitle(title)// Title of the notification
+                .setContentText(message)// Notification message
+                .setPriority(NotificationCompat.PRIORITY_HIGH)// Notification priority
+                .setAutoCancel(true)// Dismiss notification when tapped
+                // Launch MainAcitivy when tapped
                 .setContentIntent(pendingIntent)
-
+            // Notify the user
             notificationManager.notify(notificationId, builder.build())
         } else {
             // Request permission

@@ -47,12 +47,12 @@ class SignInActivity : AppCompatActivity() {
             binding.buttonUseFingerprint.visibility = View.GONE
         }
 
-        // Remove the automatic biometric prompt display from here
+
         // Initialize BiometricManager to check if biometrics are available
         val biometricManager = BiometricManager.from(this)
         when (biometricManager.canAuthenticate(BiometricManager.Authenticators.BIOMETRIC_STRONG)) {
             BiometricManager.BIOMETRIC_SUCCESS -> {
-                // Biometric is available, but don't show the prompt automatically
+                //the biometric is availible but wont be displayed immediatly to the user
             }
             BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE -> {
                 showToast("No biometric hardware available on this device.")
@@ -70,12 +70,13 @@ class SignInActivity : AppCompatActivity() {
     private fun showBiometricPrompt() {
         // Create a BiometricPrompt instance
         val executor = ContextCompat.getMainExecutor(this)
+        // Initialize the BiometricPrompt with authentication callbacks
         val biometricPrompt = BiometricPrompt(this, executor, object : BiometricPrompt.AuthenticationCallback() {
             override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
                 super.onAuthenticationError(errorCode, errString)
                 showToast("Authentication error: $errString")
             }
-
+            // Called when authentication succeeds, then proceeds to fetch user data linked to the fingerprint
             override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
                 super.onAuthenticationSucceeded(result)
                 showToast("Authentication succeeded!")
@@ -91,10 +92,10 @@ class SignInActivity : AppCompatActivity() {
 
         // Create a prompt info for the biometric prompt dialog
         val promptInfo = BiometricPrompt.PromptInfo.Builder()
-            .setTitle("Sign In with Fingerprint")
-            .setDescription("Use your fingerprint to sign in")
-            .setNegativeButtonText("Cancel")
-            .setAllowedAuthenticators(BiometricManager.Authenticators.BIOMETRIC_STRONG)
+            .setTitle("Sign In with Fingerprint") // Title shown on the biometric dialog
+            .setDescription("Use your fingerprint to sign in") // Description shown on the dialog
+            .setNegativeButtonText("Cancel") // Text for the cancel button
+            .setAllowedAuthenticators(BiometricManager.Authenticators.BIOMETRIC_STRONG) // Restrict to strong biometric
             .build()
 
         // Show the biometric prompt
@@ -102,18 +103,20 @@ class SignInActivity : AppCompatActivity() {
     }
 
     private fun fetchUserDataByFingerprint() {
+        // Retrieve the email stored in preferences
         val email = preferenceManager.getString(Constants.KEY_EMAIL)
         if (email.isNullOrEmpty()) {
             // If email is not found in preferences, try to fetch it from Firestore
             val database = FirebaseFirestore.getInstance()
             database.collection(Constants.KEY_COLLECTION_USERS)
-                .whereEqualTo(Constants.KEY_FINGERPRINT_ID, "fingerprint_key_$email")
+                .whereEqualTo(Constants.KEY_FINGERPRINT_ID, "fingerprint_key_$email")// Match fingerprint ID
                 .get()
                 .addOnSuccessListener { documents ->
                     if (!documents.isEmpty) {
                         val user = documents.documents[0]
                         val fetchedEmail = user.getString(Constants.KEY_EMAIL)
                         if (!fetchedEmail.isNullOrEmpty()) {
+                            // Store email in preferences and proceed to sign in
                             preferenceManager.putString(Constants.KEY_EMAIL, fetchedEmail)
                             proceedWithFingerprintSignIn(fetchedEmail)
                         } else {
@@ -124,22 +127,26 @@ class SignInActivity : AppCompatActivity() {
                     }
                 }
                 .addOnFailureListener {
+                    // If there's an error in fetching data, prompt the user to sign in with email
                     showToast("Error fetching user data. Please sign in with email.")
                 }
         } else {
+            // If email is found in preferences, proceed to sign in with the fingerprint ID
             proceedWithFingerprintSignIn(email)
         }
     }
 
     private fun proceedWithFingerprintSignIn(email: String) {
+        // Construct the fingerprint ID for this user
         val fingerprintId = "fingerprint_key_$email"
-
+        // Query Firestore to find the user data associated with this fingerprint ID
         val database = FirebaseFirestore.getInstance()
         database.collection(Constants.KEY_COLLECTION_USERS)
             .whereEqualTo(Constants.KEY_FINGERPRINT_ID, fingerprintId)
             .get()
             .addOnCompleteListener { task ->
                 if (task.isSuccessful && task.result != null && !task.result.isEmpty) {
+                    // Save user data and redirect to MainActivity on successful sign-in
                     val documentSnapshot = task.result.documents[0]
                     saveUserData(documentSnapshot)
 
@@ -147,6 +154,7 @@ class SignInActivity : AppCompatActivity() {
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
                     startActivity(intent)
                 } else {
+                    // Prompt the user to sign in with email if no account matches the fingerprint ID
                     showToast("No account found for this fingerprint. Please sign in with email.")
                 }
             }

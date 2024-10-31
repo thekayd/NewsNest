@@ -69,35 +69,42 @@ class SignUpActivity : AppCompatActivity() {
             authenticateFingerprint()
         }
     }
+    //function to initialize the biometric authentication process
     private fun initializeBiometric() {
+        // Obtain an instance of BiometricManager to check if the device supports biometric authentication.
         biometricManager = BiometricManager.from(this)
+        // Get an executor to run the biometric prompt on the main thread.
         executor = ContextCompat.getMainExecutor(this)
+        // Create a BiometricPrompt, providing an authentication callback to handle authentication events.
         biometricPrompt = BiometricPrompt(this, executor, object : BiometricPrompt.AuthenticationCallback() {
             override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
                 super.onAuthenticationError(errorCode, errString)
                 showToast("Authentication Error: $errString")
             }
-
+            //if the authentication is successfll we can move the user foward with their signup process
             override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
                 super.onAuthenticationSucceeded(result)
                 showToast("Authentication Succeeded")
                 signUpWithFingerprint() // Proceed to sign up with fingerprint authentication
             }
-
+            //if the fingerprint isnt set up correctly the user will be prompted to retry
             override fun onAuthenticationFailed() {
                 super.onAuthenticationFailed()
                 showToast("Authentication Failed")
             }
         })
     }
+    // This function initiates fingerprint authentication if biometric authentication is available on the device.
     private fun authenticateFingerprint() {
+        // Check if biometric authentication is supported and ready to use.
         if (biometricManager.canAuthenticate() == BiometricManager.BIOMETRIC_SUCCESS) {
+            // Start the biometric prompt with the settings provided in createBiometricPromptInfo().
             biometricPrompt.authenticate(createBiometricPromptInfo())
         } else {
             showToast("Fingerprint authentication is not available")
         }
     }
-
+    // This function creates the configuration for the biometric prompt, specifying the title, subtitle, and cancel option.
     private fun createBiometricPromptInfo(): BiometricPrompt.PromptInfo {
         return BiometricPrompt.PromptInfo.Builder()
             .setTitle("Fingerprint Authentication")
@@ -105,9 +112,11 @@ class SignUpActivity : AppCompatActivity() {
             .setNegativeButtonText("Cancel")
             .build()
     }
-
+    // This function sets up encryption using the fingerprint, storing a unique key for the user’s sign-up details.
     private fun signUpWithFingerprint() {
+        // First, check if the user’s details are valid before proceeding.
         if (isValidSignUpDetails()) {
+            // Generate a unique key for this user, combining a prefix with the user's email.
             val keyGenParameterSpec = KeyGenParameterSpec.Builder(
                 "fingerprint_key_${binding.inputEmail.text}",
                 KeyProperties.PURPOSE_ENCRYPT or KeyProperties.PURPOSE_DECRYPT
@@ -116,13 +125,13 @@ class SignUpActivity : AppCompatActivity() {
                 .setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_PKCS7)
                 .setUserAuthenticationRequired(true)
                 .build()
-
+            // Create and initialize the key generator for AES encryption, using the Android Keystore.
             val keyGenerator = KeyGenerator.getInstance(KeyProperties.KEY_ALGORITHM_AES, "AndroidKeyStore")
             keyGenerator.init(keyGenParameterSpec)
             keyGenerator.generateKey()
-
+            // Store the fingerprint key identifier for this user.
             fingerprintId = "fingerprint_key_${binding.inputEmail.text}"
-
+            // Proceed with the sign-up process using the generated fingerprint key.
             signUp(fingerprintId)
         }
     }

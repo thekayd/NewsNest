@@ -27,7 +27,7 @@ class ProfileActivity : AppCompatActivity() {
     private lateinit var binding: ActivityProfileBinding
     // Holds the base64-encoded image string
     private var encodedImage: String? = null
-    // Manages user preferences (e.g., storing user data locally)
+    // Manages user preferences
     private lateinit var preferenceManager: PreferenceManager
     // Stores the user ID of the currently logged-in user
     private lateinit var userId: String

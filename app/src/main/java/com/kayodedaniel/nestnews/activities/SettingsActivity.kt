@@ -114,9 +114,11 @@ class SettingsActivity : AppCompatActivity() {
             }
         }
     }
-
+    //This function changes the language without recreating the activity immediately.
     private fun changeLanguageWithoutRecreate(isAfrikaans: Boolean) {
+        //check if the slected language is afrikaans, if true then setting the locale to af
         val locale = if (isAfrikaans) Locale("af") else Locale("en")
+        //set the apps default locale to the new selected language
         Locale.setDefault(locale)
         val config = Configuration()
         config.setLocale(locale)
@@ -125,6 +127,7 @@ class SettingsActivity : AppCompatActivity() {
         // Instead of immediate recreation, allow user to see the changes after a smooth activity restart
         recreateActivityForThemeChange()
     }
+    // This function changes the langauge immediately
     private fun changeLanguage(isAfrikaans: Boolean) {
         val locale = if (isAfrikaans) Locale("af") else Locale("en")
         Locale.setDefault(locale)
