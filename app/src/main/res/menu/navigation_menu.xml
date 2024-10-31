@@ -18,7 +18,7 @@
         android:title="@string/messages" />
     <item
         android:id="@+id/nav_chat_bot"
-        android:icon="@drawable/ic_chat"
+        android:icon="@drawable/ic_android"
         android:title="@string/chatbot" />
     <item
         android:id="@+id/navigation_settings"

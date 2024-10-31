@@ -15,11 +15,25 @@ class ChatViewModel : ViewModel() {
     private val _chatState = MutableStateFlow(ChatState())
     val chatState = _chatState.asStateFlow()
 
+
+
+    private fun addPrompt(prompt: String, bitmap: Bitmap?) {
+        _chatState.update {
+            it.copy(
+                chatList = it.chatList.toMutableList().apply {
+                    add(0, Chat(prompt, bitmap, true))
+                },
+                prompt = "",
+                bitmap = null
+            )
+        }
+    }
     fun onEvent(event: ChatUIEvent) {
         when (event) {
             is ChatUIEvent.sendPrompt -> {
                 if (event.prompt.isNotEmpty()) {
                     addPrompt(event.prompt, event.bitmap)
+                    _chatState.update { it.copy(isTyping = true) }
                     if (event.bitmap != null) {
                         getResponseWithImage(event.prompt, event.bitmap)
                     } else {
@@ -35,18 +49,6 @@ class ChatViewModel : ViewModel() {
         }
     }
 
-    private fun addPrompt(prompt: String, bitmap: Bitmap?) {
-        _chatState.update {
-            it.copy(
-                chatList = it.chatList.toMutableList().apply {
-                    add(0, Chat(prompt, bitmap, true))
-                },
-                prompt = "",
-                bitmap = null
-            )
-        }
-    }
-
     private fun getResponse(prompt: String) {
         viewModelScope.launch {
             try {
@@ -55,11 +57,13 @@ class ChatViewModel : ViewModel() {
                     it.copy(
                         chatList = it.chatList.toMutableList().apply {
                             add(0, chat)
-                        }
+                        },
+                        isTyping = false  // Set isTyping to false after response
                     )
                 }
             } catch (e: Exception) {
                 Log.e("ChatViewModel", "Error fetching response: ${e.message}")
+                _chatState.update { it.copy(isTyping = false) }  // Set isTyping to false on error
             }
         }
     }
@@ -72,13 +76,14 @@ class ChatViewModel : ViewModel() {
                     it.copy(
                         chatList = it.chatList.toMutableList().apply {
                             add(0, chat)
-                        }
+                        },
+                        isTyping = false  // Set isTyping to false after response
                     )
                 }
             } catch (e: Exception) {
                 Log.e("ChatViewModel", "Error fetching response with image: ${e.message}")
+                _chatState.update { it.copy(isTyping = false) }  // Set isTyping to false on error
             }
         }
     }
-
 }

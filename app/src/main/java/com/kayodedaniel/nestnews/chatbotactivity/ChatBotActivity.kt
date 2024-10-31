@@ -24,6 +24,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -77,7 +78,7 @@ class ChatBotActivity : ComponentActivity() {
                                     modifier = Modifier.align(Alignment.CenterStart),
                                     text = stringResource(id = R.string.app_name),
                                     fontSize = 19.sp,
-                                    color = MaterialTheme.colorScheme.primary
+                                    color = Color.White
                                 )
                             }
                         }
@@ -109,6 +110,11 @@ class ChatBotActivity : ComponentActivity() {
                     .padding(horizontal = 8.dp),
                 reverseLayout = true
             ) {
+                if (chatState.isTyping) {
+                    item {
+                        ModelChatItem(response = "Typing...")
+                    }
+                }
                 itemsIndexed(chatState.chatList) { _, chat ->
                     if (chat.isFromUser) {
                         UserChatItem(
