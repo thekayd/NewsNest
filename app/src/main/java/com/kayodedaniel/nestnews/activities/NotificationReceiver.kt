@@ -28,7 +28,7 @@ class NotificationReceiver : BroadcastReceiver() {
         )
         //Initialize AlarmManager and set a trigger time
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as android.app.AlarmManager
-        val triggerTime = System.currentTimeMillis() + (60 * 1000) // 1 minute
+        val triggerTime = System.currentTimeMillis() + (60 * 60 * 1000) // 1 hour
 
         try {
             // For Android 12 and above, check if exact alarms are allowed and set accordingly
