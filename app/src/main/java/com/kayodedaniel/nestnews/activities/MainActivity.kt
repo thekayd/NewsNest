@@ -268,7 +268,8 @@ class MainActivity : AppCompatActivity() {
         )
 
         val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        val triggerTime = System.currentTimeMillis() + (60 * 1000) // 1 minute
+        val triggerTime = System.currentTimeMillis() + (60 * 60 * 1000) // 1 hour
+
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             if (alarmManager.canScheduleExactAlarms()) {
